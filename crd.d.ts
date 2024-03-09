@@ -1,5 +1,5 @@
 declare module 'crd' {
-	export interface Visi1 {
+	export interface Visit1 {
 		patient_current_situation:
 			| 'Alta'
 			| 'Reingreso'
