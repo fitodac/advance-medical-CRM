@@ -1,0 +1,27 @@
+/* @import '../twUiKit/twUiKit.css'; */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	font-size: 15.6px;
+}
+
+/* @media (min-width: 1300px) {
+	html {
+		font-size: 16px;
+	}
+} */
+
+form .input-search {
+	@apply border
+	border-slate-300
+	flex
+	gap-x-2
+	rounded-md;
+}
+
+form .input-search > input {
+	border: none;
+}

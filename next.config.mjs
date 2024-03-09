@@ -1,4 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+	// basePath: '/dashboard',
+	// async redirects() {
+	// 	return [
+	// 		{
+	// 			source: '/',
+	// 			destination: '/dashboard',
+	// 			permanent: true,
+	// 		},
+	// 	]
+	// },
+}
 
-export default nextConfig;
+export default nextConfig
