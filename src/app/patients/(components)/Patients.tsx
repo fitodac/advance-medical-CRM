@@ -1,5 +1,6 @@
 'use client'
 import { useSession } from 'next-auth/react'
+import { useCrdStore } from '@/store'
 import {
 	PageHeader,
 	Breadcrumbs,
@@ -28,9 +29,8 @@ const thead = [
 
 export const Patients = ({ data }: { data: { [key: string]: any } }) => {
 	const { data: session, status } = useSession()
-	console.log('session', session)
-
-	// const user: User = session ? session.user : null
+	// console.log('session', session)
+	const { setPatient } = useCrdStore()
 
 	const createNewPatient = () => {
 		console.log('createNewPatient')
@@ -54,7 +54,7 @@ export const Patients = ({ data }: { data: { [key: string]: any } }) => {
 			<Breadcrumbs data={[{ title: 'Lista de pacientes', current: true }]} />
 
 			<section className="w-full overflow-x-hidden pt-5">
-				{data && (
+				{data && session?.user && (
 					<Table
 						header={
 							'doctor' === session?.user.role
@@ -62,43 +62,47 @@ export const Patients = ({ data }: { data: { [key: string]: any } }) => {
 								: thead
 						}
 					>
-						{data.map(({ id, code, doctor, center, visits }: Row) => (
-							<tr key={crypto.randomUUID()}>
+						{data.map((patient: Row) => (
+							<tr key={patient.code}>
 								<td>
-									<span className="text-slate-300 text-xs">{id}</span>
+									<span className="text-slate-300 text-xs">{patient.id}</span>
 								</td>
 
 								<td>
 									<span className="text-slate-500 text-sm font-bold">
-										{code}
+										{patient.code}
 									</span>
 								</td>
 
 								<td>
 									<span
-										className={visits[0]?.birth_date ? '' : 'text-slate-200'}
+										className={
+											patient.visits[0]?.birth_date ? '' : 'text-slate-200'
+										}
 									>
-										{visits[0]?.birth_date ?? '...'}
+										{patient.visits[0]?.birth_date ?? '...'}
 									</span>
 								</td>
 
 								{'doctor' !== session?.user.role && (
 									<td className="leading-none">
-										{doctor ? (
-											doctor.user.firstname || doctor.user.lastname ? (
+										{patient.doctor ? (
+											patient.doctor.user.firstname ||
+											patient.doctor.user.lastname ? (
 												<div className="text-slate-500 whitespace-nowrap text-ellipsis">
-													{doctor?.user.firstname} {doctor?.user.lastname}
+													{patient.doctor?.user.firstname}{' '}
+													{patient.doctor?.user.lastname}
 												</div>
 											) : (
-												<div>{doctor?.user.name}</div>
+												<div>{patient.doctor?.user.name}</div>
 											)
 										) : (
 											<div className="text-slate-300">sin datos</div>
 										)}
 
-										{center ? (
+										{patient.center ? (
 											<small className="text-slate-500 text-xs font-light">
-												{center?.name}
+												{patient.center?.name}
 											</small>
 										) : (
 											<small className="text-slate-300 text-xs font-light">
@@ -109,26 +113,36 @@ export const Patients = ({ data }: { data: { [key: string]: any } }) => {
 								)}
 
 								<td>
-									<span className={visits[0]?.date ? '' : 'text-slate-200'}>
-										{visits[0]?.date ?? '...'}
+									<span
+										className={patient.visits[0]?.date ? '' : 'text-slate-200'}
+									>
+										{patient.visits[0]?.date ?? '...'}
 									</span>
 								</td>
 
 								<td>
-									<span className={visits[1]?.date ? '' : 'text-slate-200'}>
-										{visits[1]?.date ?? '...'}
+									<span
+										className={patient.visits[1]?.date ? '' : 'text-slate-200'}
+									>
+										{patient.visits[1]?.date ?? '...'}
 									</span>
 								</td>
 
 								<td>
 									<div className="flex gap-x-2 justify-end h-full">
 										{'doctor' === session?.user.role && (
-											<ButtonLink
-												className="btn-sm bg-teal border-teal text-white"
-												href={`/crd/${id}`}
+											<span
+												onClick={() => {
+													setPatient(patient)
+												}}
 											>
-												CRD
-											</ButtonLink>
+												<ButtonLink
+													className="btn-sm bg-teal border-teal text-white"
+													href={`/crd/${patient.id}`}
+												>
+													CRD
+												</ButtonLink>
+											</span>
 										)}
 
 										<Button>Borrar</Button>

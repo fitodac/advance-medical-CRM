@@ -1,7 +1,13 @@
-export const InputDate = () => {
+export const InputDate = ({
+	value,
+	onChange,
+}: {
+	value: string
+	onChange: () => void
+}) => {
 	return (
 		<>
-			<input type="text" />
+			<input type="text" value={value} onChange={onChange} />
 		</>
 	)
 }

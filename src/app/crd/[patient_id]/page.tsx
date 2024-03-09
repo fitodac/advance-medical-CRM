@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • CRD`,
 }
 
-const CrdPage = async ({ params }: { params: { id: string } }) => {
+const CrdPage = async ({ params }: { params: { patient_id: string } }) => {
 	const { sessionCookie } = await useGetToken()
 	let form_data: {
 		success: boolean
@@ -17,7 +17,7 @@ const CrdPage = async ({ params }: { params: { id: string } }) => {
 
 	try {
 		const fetchData = await fetch(
-			`${process.env.NEXTAUTH_URL}/api/crd/${params.id}`,
+			`${process.env.NEXTAUTH_URL}/api/crd/${params.patient_id}`,
 			{
 				headers: {
 					Cookie: sessionCookie,
@@ -30,7 +30,6 @@ const CrdPage = async ({ params }: { params: { id: string } }) => {
 		}
 	} catch (err) {
 		console.log('Error', err)
-		// toast.error('Se ha producido un error en la petición al servidor')
 	}
 
 	return (
@@ -44,7 +43,7 @@ const CrdPage = async ({ params }: { params: { id: string } }) => {
 				]}
 			/>
 
-			{form_data && <Form />}
+			{form_data && <Form retrievedData={form_data} />}
 		</div>
 	)
 }

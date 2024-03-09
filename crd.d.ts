@@ -1,4 +1,16 @@
 declare module 'crd' {
+	export interface Initial {
+		date: string
+		inclusion_q1: 'y' | 'n' | null
+		inclusion_q2: 'y' | 'n' | null
+		inclusion_q3: 'y' | 'n' | null
+		exclusion_q1: 'y' | 'n' | null
+		exclusion_q2: 'y' | 'n' | null
+		exclusion_q3: 'y' | 'n' | null
+		exclusion_q4: 'y' | 'n' | null
+		exclusion_q5: 'y' | 'n' | null
+	}
+
 	export interface Visit1 {
 		patient_current_situation:
 			| 'Alta'
@@ -54,7 +66,10 @@ declare module 'crd' {
 		rng__has_reached_nutritional_goal_reasons: string
 		cppi__considers_that_patient_perceives_improvement: 'n' | 'y' | null
 		cppi__considers_that_patient_perceives_improvement_reasons: string
-		hfppar_followed_prescribed_physical_activity_recommendation: 'n' | 'y' | null
+		hfppar_followed_prescribed_physical_activity_recommendation:
+			| 'n'
+			| 'y'
+			| null
 		hfppar_percentage_of_adherece_to_recommendations: string
 		hfppar__not_followed_prescribed_recommendation: string
 

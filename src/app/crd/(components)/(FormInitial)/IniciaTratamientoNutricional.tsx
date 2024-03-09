@@ -9,10 +9,7 @@ export const IniciaTratamientoNutricional = () => {
 
 	return (
 		<>
-			<FormGroup
-				id="V0W1X2"
-				title="Inicia tratamiento nutricional"
-			>
+			<FormGroup id="V0W1X2" title="Inicia tratamiento nutricional">
 				<div className="flex gap-x-8">
 					<div className="w-full grid gap-y-3">
 						<label className="input-checkbox">
