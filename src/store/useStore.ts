@@ -1,8 +1,9 @@
 import { create } from 'zustand'
 import type { Initial, Visit1 } from 'crd'
+import type { Patient } from 'types'
 
 interface CrdStore {
-	patient: any
+	patient: Patient
 	initial: Initial | null
 	visit1: Visit1 | null
 	setInitial: (initial: Initial | null) => void

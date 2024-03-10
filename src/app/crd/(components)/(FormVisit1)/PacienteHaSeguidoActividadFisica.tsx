@@ -5,7 +5,9 @@ import { useCheckboxHandleChange } from '../../(hooks)'
 export const PacienteHaSeguidoActividadFisica = () => {
 	const { visit1 } = useCrdStore()
 
-	const { handleChange } = useCheckboxHandleChange()
+	const { handleChange } = useCheckboxHandleChange('visit1')
+
+	if (!visit1) return <></>
 
 	return (
 		<>

@@ -6,7 +6,9 @@ import { InputMask } from '@/components'
 export const OtrasMedidasDeComposicionCorporal = () => {
 	const { visit1 } = useCrdStore()
 
-	const { handleChange } = useCheckboxHandleChange()
+	const { handleChange } = useCheckboxHandleChange('visit1')
+
+	if (!visit1) return <></>
 
 	return (
 		<>

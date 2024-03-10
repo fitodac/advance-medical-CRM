@@ -3,11 +3,10 @@ import { FormGroup } from '..'
 import { useCheckboxHandleChange } from '../../(hooks)'
 
 export const ResultadoCribadoNutricional = () => {
-	const { visit1 } = useCrdStore()
+	const { initial } = useCrdStore()
+	const { handleChange } = useCheckboxHandleChange('initial')
 
-	const { handleChange } = useCheckboxHandleChange('visit1')
-
-	if (!visit1) return <></>
+	if (!initial) return <></>
 
 	return (
 		<>
@@ -17,16 +16,15 @@ export const ResultadoCribadoNutricional = () => {
 				subtitle="¿Está el paciente en riesgo de desnutrición?"
 				required
 			>
-				<div className="flex gap-6 items-start">
+				<section className="flex gap-x-4">
 					<label className="input-checkbox">
 						<input
 							type="radio"
 							name="ns__result"
-							defaultValue="n"
+							value="n"
+							checked={initial.ns__result === 'n'}
 							onChange={handleChange}
-							checked={visit1.ns__result === 'n'}
 						/>
-
 						<span>No</span>
 					</label>
 
@@ -34,14 +32,13 @@ export const ResultadoCribadoNutricional = () => {
 						<input
 							type="radio"
 							name="ns__result"
-							defaultValue="y"
+							value="y"
+							checked={initial.ns__result === 'y'}
 							onChange={handleChange}
-							checked={visit1.ns__result === 'y'}
 						/>
-
 						<span>Sí</span>
 					</label>
-				</div>
+				</section>
 			</FormGroup>
 		</>
 	)

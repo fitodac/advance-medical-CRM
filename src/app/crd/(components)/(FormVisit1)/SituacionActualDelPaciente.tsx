@@ -1,12 +1,15 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useSetDate, useCheckboxHandleChange } from '../../(hooks)'
 import { InputDate } from '@/components'
 
 export const SituacionActualDelPaciente = () => {
 	const { visit1 } = useCrdStore()
 
-	const { handleChange } = useCheckboxHandleChange()
+	const { handleChange } = useCheckboxHandleChange('visit1')
+	const { setDate } = useSetDate('visit1')
+
+	if (!visit1) return <></>
 
 	return (
 		<>
@@ -74,7 +77,7 @@ export const SituacionActualDelPaciente = () => {
 					</div>
 
 					<div className="flex-1">
-						<InputDate />
+						<InputDate name="date" value={visit1.date} onChange={(e) => setDate(e)}/>
 					</div>
 				</div>
 			</FormGroup>

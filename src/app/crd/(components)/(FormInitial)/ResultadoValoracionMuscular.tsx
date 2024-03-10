@@ -2,12 +2,11 @@ import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
 import { useCheckboxHandleChange } from '../../(hooks)'
 
-export const ResultadoDeValidacionMuscular = () => {
-	const { visit1 } = useCrdStore()
+export const ResultadoValoracionMuscular = () => {
+	const { initial } = useCrdStore()
+	const { handleChange } = useCheckboxHandleChange('initial')
 
-	const { handleChange } = useCheckboxHandleChange('visit1')
-
-	if (!visit1) return <></>
+	if (!initial) return <></>
 
 	return (
 		<>
@@ -16,16 +15,15 @@ export const ResultadoDeValidacionMuscular = () => {
 				title="Resultado de la valoración muscular"
 				subtitle="¿La masa muscular/función del paciente es normal?"
 			>
-				<div className="flex gap-6 items-start">
+				<section className="flex gap-x-4">
 					<label className="input-checkbox">
 						<input
 							type="radio"
 							name="mar__normal"
-							defaultValue="n"
+							value="n"
+							checked={initial.mar__normal === 'n'}
 							onChange={handleChange}
-							checked={visit1.mar__normal === 'n'}
 						/>
-
 						<span>No</span>
 					</label>
 
@@ -33,14 +31,13 @@ export const ResultadoDeValidacionMuscular = () => {
 						<input
 							type="radio"
 							name="mar__normal"
-							defaultValue="y"
+							value="y"
+							checked={initial.mar__normal === 'y'}
 							onChange={handleChange}
-							checked={visit1.mar__normal === 'y'}
 						/>
-
 						<span>Sí</span>
 					</label>
-				</div>
+				</section>
 			</FormGroup>
 		</>
 	)

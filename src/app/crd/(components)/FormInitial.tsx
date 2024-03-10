@@ -3,7 +3,36 @@ import { useCrdStore } from '@/store'
 import { Button } from '@/components'
 import { RequiredFieldsMessage } from '.'
 import { HeaderSection } from '.'
-import { Date, CriteriosInclusion, CriteriosExclusion } from './(FormInitial)'
+import {
+	Date,
+	CriteriosInclusion,
+	CriteriosExclusion,
+	DatosSociodemograficos,
+	AntecedentesMedicos,
+	FechaValoracion,
+	Antropometria,
+	CribadoNutricional,
+	ResultadoCribadoNutricional,
+	CribadoMuscular,
+	ResultadoCribadoMuscular,
+	DiagnosticoNutricionalUtilizado,
+	ResultadoValoracionNutricional,
+	Sarcopenia,
+	ParametrosFuncionales,
+	OtrasMedidasDeComposicionCorporal,
+	Dexa,
+	Tc,
+	EcografiaNutricional,
+	EcografiaAbdominal,
+	EcografiaMuscular,
+	ResultadoValoracionMuscular,
+	ObjetivosPlanteados,
+	IniciaTratamientoNutricional,
+	TipoDeTratamientoNutricionalIndicado,
+	RefiereEndocrinologiaParaIniciarTratamientoNutricional,
+	ActividadFisicaPrescripta,
+	TiposDeEjercicios,
+} from './(FormInitial)'
 
 export const FormInitial = () => {
 	const { initial } = useCrdStore()
@@ -19,27 +48,60 @@ export const FormInitial = () => {
 
 						<div className="space-y-5">
 							<HeaderSection title="Criterios de inclusión y exclusión" />
-							<CriteriosInclusion />
-							<CriteriosExclusion />
+							<div className="space-y-8">
+								<CriteriosInclusion />
+								<CriteriosExclusion />
+							</div>
 						</div>
 
-						<div>
+						<div className="space-y-5">
 							<HeaderSection title="Datos sociodemográficos" />
+							<div className="space-y-8">
+								<DatosSociodemograficos />
+								<AntecedentesMedicos />
+							</div>
 						</div>
 
-						<div>
+						<div className="space-y-5">
 							<HeaderSection title="Ámbito asistencial" />
+							<div className="space-y-8">
+								<FechaValoracion />
+								<Antropometria />
+								<CribadoNutricional />
+								<ResultadoCribadoNutricional />
+								<CribadoMuscular />
+								<ResultadoCribadoMuscular />
+								<DiagnosticoNutricionalUtilizado />
+								<ResultadoValoracionNutricional />
+								<Sarcopenia />
+								<ParametrosFuncionales />
+								<OtrasMedidasDeComposicionCorporal />
+								<Dexa />
+								<Tc />
+								<EcografiaNutricional />
+								<EcografiaAbdominal />
+								<EcografiaMuscular />
+								<ResultadoValoracionMuscular />
+							</div>
 						</div>
 
-						<div>
+						<div className="space-y-5">
 							<HeaderSection title="Tratamiento nutricional (si procede)" />
+							<div className="space-y-8">
+								<ObjetivosPlanteados />
+								<IniciaTratamientoNutricional />
+								<TipoDeTratamientoNutricionalIndicado />
+								<RefiereEndocrinologiaParaIniciarTratamientoNutricional />
+							</div>
 						</div>
 
-						<div>
+						<div className="space-y-5">
 							<HeaderSection title="Actividad física - promoción" />
+							<div className="space-y-8">
+								<ActividadFisicaPrescripta />
+								<TiposDeEjercicios />
+							</div>
 						</div>
-
-						<pre>{JSON.stringify(initial, null, 2)}</pre>
 
 						<div className="bg-white w-full py-4 flex items-center gap-x-8 bottom-0 fixed z-20 shadow-2xl">
 							<Button className="btn-lg text-base bg-primary border-primary text-white">
@@ -49,6 +111,12 @@ export const FormInitial = () => {
 						</div>
 					</div>
 				</form>
+
+				<div className="h-8" />
+
+				<div className="bg-black/70 text-white text-xs leading-relaxed w-1/3 p-6 right-0 inset-y-0 fixed overflow-y-auto z-40">
+					<pre className="">{JSON.stringify(initial, null, 2)}</pre>
+				</div>
 			</>
 		)
 

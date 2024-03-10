@@ -1,12 +1,13 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
 import { useCheckboxHandleChange } from '../../(hooks)'
-import { InputDate } from '@/components'
 
 export const PacienteHaSeguidoTratamientoNutricional = () => {
 	const { visit1 } = useCrdStore()
 
-	const { handleChange } = useCheckboxHandleChange()
+	const { handleChange } = useCheckboxHandleChange('visit1')
+
+	if (!visit1) return <></>
 
 	return (
 		<>

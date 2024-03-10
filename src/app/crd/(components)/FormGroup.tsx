@@ -13,8 +13,8 @@ export const FormGroup = ({
 }) => {
 	return (
 		<section>
-			{title && (
-				<div className="leading-tight select-none">
+			<div className="leading-tight select-none">
+				{title && (
 					<div className="text-primary font-extrabold">
 						{title}
 
@@ -28,11 +28,12 @@ export const FormGroup = ({
 							</svg>
 						)}
 					</div>
-					{subtitle && <div className="text-slate-400 text-sm">{subtitle}</div>}
-				</div>
-			)}
+				)}
+				{subtitle && <div className="text-slate-400 text-sm">{subtitle}</div>}
+			</div>
 
-			<div className="mt-3" id={id}>
+			<div className="mt-3 relative">
+				<div id={id} className="-top-24 absolute" />
 				{children}
 			</div>
 		</section>

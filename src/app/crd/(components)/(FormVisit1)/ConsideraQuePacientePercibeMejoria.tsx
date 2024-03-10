@@ -1,12 +1,13 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
 import { useCheckboxHandleChange } from '../../(hooks)'
-import { InputDate } from '@/components'
 
 export const ConsideraQuePacientePercibeMejoria = () => {
 	const { visit1 } = useCrdStore()
 
-	const { handleChange } = useCheckboxHandleChange()
+	const { handleChange } = useCheckboxHandleChange('visit1')
+
+	if (!visit1) return <></>
 
 	return (
 		<>
@@ -46,12 +47,15 @@ export const ConsideraQuePacientePercibeMejoria = () => {
 					</div>
 
 					<div className="">
-						{visit1.cppi__considers_that_patient_perceives_improvement === 'n' && (
+						{visit1.cppi__considers_that_patient_perceives_improvement ===
+							'n' && (
 							<>
 								<div className="h-3"></div>
 								<input
 									type="text"
-									value={visit1.cppi__considers_that_patient_perceives_improvement_reasons}
+									value={
+										visit1.cppi__considers_that_patient_perceives_improvement_reasons
+									}
 								/>
 							</>
 						)}

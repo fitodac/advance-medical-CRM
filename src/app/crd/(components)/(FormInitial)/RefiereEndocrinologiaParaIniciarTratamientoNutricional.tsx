@@ -2,7 +2,7 @@ import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
 import { useCheckboxHandleChange } from '../../(hooks)'
 
-export const IniciaTratamientoNutricional = () => {
+export const RefiereEndocrinologiaParaIniciarTratamientoNutricional = () => {
 	const { initial } = useCrdStore()
 
 	const { handleChange } = useCheckboxHandleChange('initial')
@@ -11,29 +11,36 @@ export const IniciaTratamientoNutricional = () => {
 
 	return (
 		<>
-			<FormGroup id="V0W1X2" title="Inicia tratamiento nutricional">
+			<FormGroup
+				id="N8O9P0"
+				title="Refiere al Servicio de Endocrinología y Nutrición para iniciar tratamiento nutricional"
+			>
 				<div className="flex gap-x-8">
 					<div className="w-full grid gap-y-3">
 						<label className="input-checkbox">
 							<input
 								type="radio"
-								value="n"
-								name="nt__start"
-								checked={initial.nt__start === 'n'}
+								value="y"
+								name="refers_patient_to_begin_nutritional_treatment"
+								checked={
+									initial.refers_patient_to_begin_nutritional_treatment === 'y'
+								}
 								onChange={handleChange}
 							/>
-							<span>No</span>
+							<span>Sí</span>
 						</label>
 
 						<label className="input-checkbox">
 							<input
 								type="radio"
-								value="y"
-								name="nt__start"
-								checked={initial.nt__start === 'y'}
+								value="n"
+								name="refers_patient_to_begin_nutritional_treatment"
+								checked={
+									initial.refers_patient_to_begin_nutritional_treatment === 'n'
+								}
 								onChange={handleChange}
 							/>
-							<span>Sí, especifique</span>
+							<span>No (yo gestiono el tratamiento del paciente)</span>
 						</label>
 					</div>
 				</div>

@@ -86,8 +86,6 @@ export const FormVisit1 = () => {
 							</div>
 						</div>
 
-						{/* <pre>{JSON.stringify(visit1, null, 2)}</pre> */}
-
 						<div className="bg-white w-full py-4 flex items-center gap-x-8 bottom-0 fixed z-20 shadow-2xl">
 							<Button className="btn-lg text-base bg-primary border-primary text-white">
 								Guardar
@@ -97,7 +95,11 @@ export const FormVisit1 = () => {
 					</div>
 				</form>
 
-				<div className="h-8"></div>
+				<div className="h-8" />
+
+				<div className="bg-black/70 text-white text-xs leading-relaxed w-1/3 p-6 right-0 inset-y-0 fixed overflow-y-auto z-40">
+					<pre className="">{JSON.stringify(visit1, null, 2)}</pre>
+				</div>
 			</>
 		)
 
