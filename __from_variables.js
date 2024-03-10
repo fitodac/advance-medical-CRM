@@ -7,29 +7,6 @@ switch (name) {
 		return val < 15 || val > 35 ? 'Por favor confirme el valor' : null
 	case 'ans__anthropometry__calf_circumference':
 		return val < 20 || val > 50 ? 'Por favor confirme el valor' : null
-	// case 'bi__hydratation':
-	// 	return val < 50 || val > 80 ? 'Por favor confirme el valor' : null
-	// case 'bi__ffm':
-	// 	return val < 20 || val > 70 ? 'Por favor confirme el valor' : null
-	// case 'bi__fm':
-	// 	return val < 10 || val > 35 ? 'Por favor confirme el valor' : null
-	// case 'bi__bcm':
-	// 	return val < 10 || val > 40 ? 'Por favor confirme el valor' : null
-	// case 'bi__phase_angle':
-	// 	return val < 3 || val > 25 ? 'Por favor confirme el valor' : null
-	// case 'au__total_adipose_tissue':
-	// 	return val > 12 ? 'Por favor confirme el valor' : null
-	// case 'au__superficial':
-	// case 'au__preperitoneal':
-	// 	return val > 12 ? 'Por favor confirme el valor' : null
-	// case 'mu__area':
-	// 	return val < 5 ? 'Por favor confirme el valor' : null
-	// case 'mu__circumference':
-	// 	return val > 25 ? 'Por favor confirme el valor' : null
-	// case 'mu__axes_xax':
-	// case 'mu__axes_yax':
-	// case 'mu__adipose_tissue':
-	// 	return val > 12 ? 'Por favor confirme el valor' : null
 	case 'hfnr__percentage_of_adherece_to_recommendations':
 		console.log('val', val)
 		return 'error...'
