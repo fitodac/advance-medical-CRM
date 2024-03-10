@@ -1,22 +1,26 @@
 import type { ChangeEvent } from 'react'
 import { useCrdStore } from '@/store'
+import type { Initial, Visit1 } from 'crd'
 
 /**
  * Modifica el store al clickear un checkbox
- * @returns handleChange: () => void
+ *
+ * @use const { handleChange } = useCheckboxHandleChange({VISIT_TYPE})
  */
 export const useCheckboxHandleChange = (visitType: 'initial' | 'visit1') => {
 	const { visit1, setVisit1, initial, setInitial } = useCrdStore()
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
+		const value = e.target.value
 
 		if (initial && visitType === 'initial') {
+			const name = e.target.name as keyof Initial
 			const val = initial[name] === value ? null : value
 			setInitial({ ...initial, [e.target.name]: val })
 		}
 
 		if (visit1 && visitType === 'visit1') {
+			const name = e.target.name as keyof Visit1
 			const val = visit1[name] === value ? null : value
 			setVisit1({ ...visit1, [e.target.name]: val })
 		}
@@ -27,47 +31,51 @@ export const useCheckboxHandleChange = (visitType: 'initial' | 'visit1') => {
 
 /**
  * Modifica el store al cambiar el valor en un campo
- * @param visitType
- * @returns
+ *
+ * @use const { handleInputChange } = useInputHandleChange({VISIT_TYPE})
  */
 export const useInputHandleChange = (visitType: 'initial' | 'visit1') => {
 	const { visit1, setVisit1, initial, setInitial } = useCrdStore()
 
-	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
+	const handleInputChange = (
+		e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+	) => {
+		const value = e.target.value
 
-		console.log('e', e)
+		if (initial && visitType === 'initial') {
+			const name = e.target.name as keyof Initial
+			const val = initial[name] === value ? null : value
+			setInitial({ ...initial, [e.target.name]: val })
+		}
 
-		// if (initial && visitType === 'initial') {
-		// 	const val = initial[name] === value ? null : value
-		// 	setInitial({ ...initial, [e.target.name]: val })
-		// }
-
-		// if (visit1 && visitType === 'visit1') {
-		// 	const val = visit1[name] === value ? null : value
-		// 	setVisit1({ ...visit1, [e.target.name]: val })
-		// }
+		if (visit1 && visitType === 'visit1') {
+			const name = e.target.name as keyof Visit1
+			const val = visit1[name] === value ? null : value
+			setVisit1({ ...visit1, [e.target.name]: val })
+		}
 	}
 
 	return { handleInputChange }
 }
 
-export const useSetDate = (visitType: 'initial' | 'visit1') => {
+export const useSetValue = (visitType: 'initial' | 'visit1') => {
 	const { visit1, setVisit1, initial, setInitial } = useCrdStore()
 
-	const setDate = (inputValue: { target: { name: string; value: string } }) => {
-		const { name, value } = inputValue.target
+	const setValue = (e: { target: { name: string; value: string } }) => {
+		const value = e.target.value
 
 		if (initial && visitType === 'initial') {
+			const name = e.target.name as keyof Initial
 			const val = initial[name] === value ? null : value
 			setInitial({ ...initial, [name]: val })
 		}
 
 		if (visit1 && visitType === 'visit1') {
+			const name = e.target.name as keyof Visit1
 			const val = visit1[name] === value ? null : value
 			setVisit1({ ...visit1, [name]: val })
 		}
 	}
 
-	return { setDate }
+	return { setValue }
 }

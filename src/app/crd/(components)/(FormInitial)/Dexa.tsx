@@ -1,9 +1,10 @@
 import { useCrdStore } from '@/store'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useSetValue } from '../../(hooks)'
+import { InputNumber } from '@/components'
 
 export const Dexa = () => {
 	const { initial } = useCrdStore()
-	const { handleChange } = useCheckboxHandleChange('initial')
+	const { setValue } = useSetValue('initial')
 
 	if (!initial) return <></>
 
@@ -20,7 +21,11 @@ export const Dexa = () => {
 							</label>
 						</div>
 						<div className="col-span-2 lg:col-span-2">
-							<input type="text" name="dexa__ffm" />
+							<InputNumber
+								name="dexa__ffm"
+								value={initial.dexa__ffm}
+								onChange={setValue}
+							/>
 						</div>
 						<div className="col-span-3 flex items-center">
 							<label className="leading-none w-full block select-none">
@@ -36,7 +41,11 @@ export const Dexa = () => {
 							</label>
 						</div>
 						<div className="col-span-2 lg:col-span-2">
-							<input type="text" name="dexa__fm" />
+							<InputNumber
+								name="dexa__fm"
+								value={initial.dexa__fm}
+								onChange={setValue}
+							/>
 						</div>
 						<div className="col-span-3 flex items-center">
 							<label className="leading-none w-full block select-none">

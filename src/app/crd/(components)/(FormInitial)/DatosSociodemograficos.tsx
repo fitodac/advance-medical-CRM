@@ -1,11 +1,11 @@
 import { useCrdStore } from '@/store'
-import { useSetDate, useCheckboxHandleChange } from '../../(hooks)'
+import { useSetValue, useCheckboxHandleChange } from '../../(hooks)'
 import { InputDate } from '@/components'
 
 export const DatosSociodemograficos = () => {
 	const { initial } = useCrdStore()
 	const { handleChange } = useCheckboxHandleChange('initial')
-	const { setDate } = useSetDate('initial')
+	const { setValue } = useSetValue('initial')
 
 	if (!initial) return <></>
 
@@ -30,7 +30,7 @@ export const DatosSociodemograficos = () => {
 						<InputDate
 							name="birth_date"
 							value={initial.birth_date}
-							onChange={(e) => setDate(e)}
+							onChange={setValue}
 						/>
 					</div>
 				</div>

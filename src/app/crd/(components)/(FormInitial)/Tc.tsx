@@ -1,9 +1,10 @@
 import { useCrdStore } from '@/store'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useSetValue } from '../../(hooks)'
+import { InputNumber } from '@/components'
 
 export const Tc = () => {
 	const { initial } = useCrdStore()
-	const { handleChange } = useCheckboxHandleChange('initial')
+	const { setValue } = useSetValue('initial')
 
 	if (!initial) return <></>
 
@@ -20,7 +21,11 @@ export const Tc = () => {
 							</label>
 						</div>
 						<div className="col-span-2 lg:col-span-2">
-							<input type="text" name="tc__ffm" />
+							<InputNumber
+								name="tc__ffm"
+								value={initial.tc__ffm}
+								onChange={setValue}
+							/>
 						</div>
 						<div className="col-span-3 flex items-center">
 							<label className="leading-none w-full block select-none">
@@ -36,7 +41,11 @@ export const Tc = () => {
 							</label>
 						</div>
 						<div className="col-span-2 lg:col-span-2">
-							<input type="text" name="tc__fm" />
+							<InputNumber
+								name="tc__fm"
+								value={initial.tc__fm}
+								onChange={setValue}
+							/>
 						</div>
 						<div className="col-span-3 flex items-center">
 							<label className="leading-none w-full block select-none">

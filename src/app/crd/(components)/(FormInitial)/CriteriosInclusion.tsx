@@ -124,10 +124,12 @@ export const CriteriosInclusion = () => {
 								</div>
 							</div>
 
-							<div className="text-pink-500 text-sm leading-tight mt-4">
-								Compruebe la información. No se cumplen los criterios de
-								inclusión.
-							</div>
+							{!valid && (
+								<div className="text-pink-500 text-sm leading-tight mt-4">
+									Compruebe la información. No se cumplen los criterios de
+									inclusión.
+								</div>
+							)}
 						</div>
 					</div>
 				</section>

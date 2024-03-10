@@ -1,10 +1,10 @@
 import { useCrdStore } from '@/store'
 import { InputDate } from '@/components'
-import { useSetDate } from '../../(hooks)'
+import { useSetValue } from '../../(hooks)'
 
 export const Date = () => {
 	const { initial, patient } = useCrdStore()
-	const { setDate } = useSetDate('initial')
+	const { setValue } = useSetValue('initial')
 
 	if (!initial) return <></>
 
@@ -32,7 +32,7 @@ export const Date = () => {
 						<InputDate
 							name="date"
 							value={initial.date}
-							onChange={(e) => setDate(e)}
+							onChange={setValue}
 						/>
 					</div>
 				</div>

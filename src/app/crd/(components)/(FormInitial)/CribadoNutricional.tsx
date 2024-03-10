@@ -1,10 +1,11 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useCheckboxHandleChange, useInputHandleChange } from '../../(hooks)'
 
 export const CribadoNutricional = () => {
 	const { initial } = useCrdStore()
 	const { handleChange } = useCheckboxHandleChange('initial')
+	const { handleInputChange } = useInputHandleChange('initial')
 
 	if (!initial) return <></>
 
@@ -37,9 +38,9 @@ export const CribadoNutricional = () => {
 					<label className="input-checkbox">
 						<input
 							type="checkbox"
-							name="ns__nrs_2002"
+							name="ns__mna_sf"
 							value="y"
-							checked={initial.ns__nrs_2002 === 'y'}
+							checked={initial.ns__mna_sf === 'y'}
 							onChange={handleChange}
 						/>
 						<span>MNA-SF</span>
@@ -91,8 +92,13 @@ export const CribadoNutricional = () => {
 						</label>
 
 						{initial.ns__other === 'y' && (
-							<div className="flex-1 relative -top-1">
-								<input type="text" name="ns__other_description" />
+							<div className="flex-1 relative -top-2">
+								<input
+									type="text"
+									name="ns__other_description"
+									value={initial.ns__other_description}
+									onChange={handleInputChange}
+								/>
 							</div>
 						)}
 					</div>

@@ -37,7 +37,7 @@ export const TiposDeEjercicios = () => {
 								checked={initial.pa__predominance_muscular_strength === 'y'}
 								onChange={handleChange}
 							/>
-							<span>No, especifique motivo/s</span>
+							<span>Predominio de fuerza/resistencia muscular</span>
 						</label>
 
 						<label className="input-checkbox">

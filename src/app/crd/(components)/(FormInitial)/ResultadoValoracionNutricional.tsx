@@ -1,10 +1,11 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useCheckboxHandleChange, useInputHandleChange } from '../../(hooks)'
 
 export const ResultadoValoracionNutricional = () => {
 	const { initial } = useCrdStore()
 	const { handleChange } = useCheckboxHandleChange('initial')
+	const { handleInputChange } = useInputHandleChange('initial')
 
 	if (!initial) return <></>
 
@@ -57,12 +58,13 @@ export const ResultadoValoracionNutricional = () => {
 							<div className="w-full grid grid-cols-2 gap-x-5 relative -top-2">
 								<div className="">
 									<label>Diagnóstico</label>
-									<select name="patient_malnourished__diagnosis">
+									<select
+										name="patient_malnourished__diagnosis"
+										value={initial.patient_malnourished__diagnosis ?? ''}
+										onChange={handleInputChange}
+									>
 										<option value=""></option>
-										<option
-											value="E46 Riesgo nutricional (cribado positivo o solo un criterio GLIM que
-						no permite diagnóstico)"
-										>
+										<option value="E46 Riesgo nutricional (cribado positivo o solo un criterio GLIM que no permite diagnóstico)">
 											E46 Riesgo nutricional (cribado positivo o solo un
 											criterio GLIM que no permite diagnóstico)
 										</option>
@@ -75,7 +77,11 @@ export const ResultadoValoracionNutricional = () => {
 
 								<div className="">
 									<label>Procedimiento</label>
-									<select name="patient_malnourished__procedure">
+									<select
+										name="patient_malnourished__procedure"
+										value={initial.patient_malnourished__procedure ?? ''}
+										onChange={handleInputChange}
+									>
 										<option value=""></option>
 										<option value="3E0436Z Nutrición parenteral por vía central">
 											3E0436Z Nutrición parenteral por vía central

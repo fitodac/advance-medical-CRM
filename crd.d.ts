@@ -24,6 +24,7 @@ declare module 'crd' {
 		mh__others_description: string
 		valuation_date: string
 		hospitalization: 'y' | null
+		hospitalization_reason: string
 		scheduled_visit: 'y' | null
 		current_body_weight: string
 		usual_body_weight: string
@@ -49,6 +50,7 @@ declare module 'crd' {
 		nd__mna: 'y' | null
 		nd__vgs: 'y' | null
 		nd__other: 'y' | null
+		nd__other_description: string
 		patient_malnourished: 'si' | 'no' | 'en riesgo' | null
 		patient_malnourished__diagnosis:
 			| 'E46 Riesgo nutricional (cribado positivo o solo un criterio GLIM que no permite diagnóstico)'
@@ -68,7 +70,11 @@ declare module 'crd' {
 		dynamometry__not_possible: 'y' | null
 		test_chair_five_repetitions: string
 		test_chair__not_possible: 'y' | null
+		bi__resistance: string
 		bi__hydratation: string
+		bi__reactance: string
+		bi__phase_angle: string
+		bi__standarized_phase_angle: string
 		bi__tbm: string
 		bi__ecw: string
 		bi__icw: string
@@ -101,19 +107,21 @@ declare module 'crd' {
 		nti__parental_nutrition: 'y' | null
 		nti__dietary_modifications: 'y' | null
 		nti__son: 'y' | null
-		nti__son__option: string | string[]
+		nti__son__option: string
 		nti__son__other_description: string
 		nti__en: 'y' | null
-		nti__en__option: string | string[]
+		nti__en__option: string
 		nti__en__other_description: string
 		refers_patient_to_begin_nutritional_treatment: 'n' | 'y' | null
 		pa__prescribed: 'n' | 'y' | null
+		pa__prescribed_reasons: string
 		pa__aerobic_predominance: 'y' | null
 		pa__predominance_muscular_strength: 'y' | null
 		pa__mixed: 'y' | null
 	}
 
 	export interface Visit1 {
+		date: string
 		patient_current_situation:
 			| 'Alta'
 			| 'Reingreso'

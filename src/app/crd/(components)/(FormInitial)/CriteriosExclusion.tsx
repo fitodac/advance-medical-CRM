@@ -185,10 +185,12 @@ export const CriteriosExclusion = () => {
 								</div>
 							</div>
 
-							<div className="text-pink-500 text-sm leading-tight mt-4">
-								Compruebe la información. No se cumplen los criterios de
-								exclusión.
-							</div>
+							{!valid && (
+								<div className="text-pink-500 text-sm leading-tight mt-4">
+									Compruebe la información. No se cumplen los criterios de
+									exclusión.
+								</div>
+							)}
 						</div>
 					</div>
 				</section>

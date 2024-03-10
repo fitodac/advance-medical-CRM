@@ -1,11 +1,12 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useCheckboxHandleChange, useInputHandleChange } from '../../(hooks)'
 
 export const ObjetivosPlanteados = () => {
 	const { initial } = useCrdStore()
 
 	const { handleChange } = useCheckboxHandleChange('initial')
+	const { handleInputChange } = useInputHandleChange('initial')
 
 	return (
 		<>
@@ -76,7 +77,7 @@ export const ObjetivosPlanteados = () => {
 													initial.nt__planted_objectives__other_description
 												}
 												className="w-full"
-												onChange={() => {}}
+												onChange={handleInputChange}
 											/>
 										</>
 									)}

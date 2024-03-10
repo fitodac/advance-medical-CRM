@@ -33,7 +33,7 @@ export const IniciaTratamientoNutricional = () => {
 								checked={initial.nt__start === 'y'}
 								onChange={handleChange}
 							/>
-							<span>Sí, especifique</span>
+							<span>Sí</span>
 						</label>
 					</div>
 				</div>

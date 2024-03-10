@@ -1,6 +1,7 @@
 'use client'
 import { useCrdStore } from '@/store'
-import { Button } from '@/components'
+import { Button, InputDate } from '@/components'
+import { useSetValue } from '../(hooks)'
 import { RequiredFieldsMessage, HeaderSection } from '.'
 import {
 	SituacionActualDelPaciente,
@@ -17,7 +18,8 @@ import {
 } from './(FormVisit1)'
 
 export const FormVisit1 = () => {
-	const { visit1, setVisit1 } = useCrdStore()
+	const { visit1 } = useCrdStore()
+	const { setValue } = useSetValue('visit1')
 
 	if (visit1)
 		return (
@@ -30,7 +32,14 @@ export const FormVisit1 = () => {
 							<label className="select-none leading-tight block">
 								Fecha de la visita (día/mes/año) (≈3 meses de la visita basal)
 							</label>
-							<input type="text" className="max-w-40" />
+
+							<div className="max-w-40">
+								<InputDate
+									name="date"
+									value={visit1.date}
+									onChange={setValue}
+								/>
+							</div>
 
 							<div className="text-gray-500 text-sm pt-8 space-y-4">
 								<p>

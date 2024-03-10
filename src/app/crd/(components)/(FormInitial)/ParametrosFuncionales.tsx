@@ -1,10 +1,12 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useCheckboxHandleChange, useSetValue } from '../../(hooks)'
+import { InputNumber } from '@/components'
 
 export const ParametrosFuncionales = () => {
 	const { initial } = useCrdStore()
 	const { handleChange } = useCheckboxHandleChange('initial')
+	const { setValue } = useSetValue('initial')
 
 	if (!initial) return <></>
 
@@ -25,11 +27,10 @@ export const ParametrosFuncionales = () => {
 								</label>
 							</div>
 							<div className="col-span-1">
-								<input
-									type="text"
+								<InputNumber
 									name="dynamometry"
 									value={initial.dynamometry}
-									onChange={() => {}}
+									onChange={setValue}
 								/>
 							</div>
 							<div className="col-span-1 flex items-center">
@@ -57,11 +58,10 @@ export const ParametrosFuncionales = () => {
 								</label>
 							</div>
 							<div className="col-span-1">
-								<input
-									type="text"
+								<InputNumber
 									name="test_chair_five_repetitions"
 									value={initial.test_chair_five_repetitions}
-									onChange={() => {}}
+									onChange={setValue}
 								/>
 							</div>
 							<div className="col-span-1 flex items-center">

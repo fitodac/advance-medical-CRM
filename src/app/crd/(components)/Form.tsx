@@ -14,13 +14,13 @@ export const Form = ({
 		messages: ''
 	}
 }) => {
-	const { currentForm, setInitial, setVisit1 } = useCrdStore()
+	const { currentForm } = useCrdStore()
 	const { initializeForm } = useInitializeForm()
 
 	useEffect(() => {
 		if (retrievedData.success) {
-			initializeForm(retrievedData.data.visit)
-			console.log('DATA', retrievedData.data.visit)
+			initializeForm(retrievedData.data)
+			// console.log('DATA', retrievedData)
 		} else {
 			toast.error(
 				'El servidor ha devuelto un error al tratar de obtener la información del formulario'

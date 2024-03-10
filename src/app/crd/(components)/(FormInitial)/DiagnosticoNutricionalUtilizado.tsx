@@ -1,10 +1,11 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useCheckboxHandleChange, useInputHandleChange } from '../../(hooks)'
 
 export const DiagnosticoNutricionalUtilizado = () => {
 	const { initial } = useCrdStore()
 	const { handleChange } = useCheckboxHandleChange('initial')
+	const { handleInputChange } = useInputHandleChange('initial')
 
 	if (!initial) return <></>
 
@@ -59,7 +60,12 @@ export const DiagnosticoNutricionalUtilizado = () => {
 
 						{initial.nd__other === 'y' && (
 							<div className="flex-1 relative -top-2">
-								<input type="text" name="nd__other_description" />
+								<input
+									type="text"
+									name="nd__other_description"
+									value={initial.nd__other_description}
+									onChange={handleInputChange}
+								/>
 							</div>
 						)}
 					</div>

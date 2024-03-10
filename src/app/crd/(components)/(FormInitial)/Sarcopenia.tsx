@@ -1,10 +1,11 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useCheckboxHandleChange, useInputHandleChange } from '../../(hooks)'
 
 export const Sarcopenia = () => {
 	const { initial } = useCrdStore()
 	const { handleChange } = useCheckboxHandleChange('initial')
+	const { handleInputChange } = useInputHandleChange('initial')
 
 	if (!initial) return <></>
 
@@ -52,7 +53,11 @@ export const Sarcopenia = () => {
 							<div className="w-full grid grid-cols-2 gap-x-5 relative -top-1">
 								<div className="">
 									<label>Diagnóstico</label>
-									<select name="sarcopenia__diagnosis">
+									<select
+										name="sarcopenia__diagnosis"
+										value={initial.sarcopenia__diagnosis ?? ''}
+										onChange={handleInputChange}
+									>
 										<option value=""></option>
 										<option value="M62.84 Sarcopenia">M62.84 Sarcopenia</option>
 									</select>

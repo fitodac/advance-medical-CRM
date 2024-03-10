@@ -1,10 +1,81 @@
+import { useEffect, useState } from 'react'
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useSetValue } from '../../(hooks)'
+import { InputNumber } from '@/components'
+import { AlertMessage } from '..'
+import { convertToNumber } from '../../(helpers)'
 
 export const OtrasMedidasDeComposicionCorporal = () => {
 	const { initial } = useCrdStore()
-	const { handleChange } = useCheckboxHandleChange('initial')
+	const { setValue } = useSetValue('initial')
+
+	const [bi__hydratation_valid, set_bi__hydratation_valid] =
+		useState<boolean>(true)
+	const [bi__ffm_valid, set_bi__ffm_valid] = useState<boolean>(true)
+	const [bi__fm_valid, set_bi__fm_valid] = useState<boolean>(true)
+	const [bi__bcm_valid, set_bi__bcm_valid] = useState<boolean>(true)
+	const [bi__phase_angle_valid, set_bi__phase_angle_valid] =
+		useState<boolean>(true)
+
+	if (initial) {
+		useEffect(() => {
+			set_bi__hydratation_valid(true)
+
+			if (
+				(initial.bi__hydratation &&
+					convertToNumber(initial.bi__hydratation) < 50) ||
+				convertToNumber(initial.bi__hydratation) > 80
+			) {
+				set_bi__hydratation_valid(false)
+			}
+		}, [initial.bi__hydratation])
+
+		useEffect(() => {
+			set_bi__ffm_valid(true)
+
+			if (
+				(initial.bi__ffm && convertToNumber(initial.bi__ffm) < 20) ||
+				convertToNumber(initial.bi__ffm) > 70
+			) {
+				set_bi__ffm_valid(false)
+			}
+		}, [initial.bi__ffm])
+
+		useEffect(() => {
+			set_bi__fm_valid(true)
+
+			if (
+				(initial.bi__fm && convertToNumber(initial.bi__fm) < 10) ||
+				convertToNumber(initial.bi__fm) > 35
+			) {
+				set_bi__fm_valid(false)
+			}
+		}, [initial.bi__fm])
+
+		useEffect(() => {
+			set_bi__bcm_valid(true)
+
+			if (
+				(initial.bi__bcm && convertToNumber(initial.bi__bcm) < 10) ||
+				convertToNumber(initial.bi__bcm) > 40
+			) {
+				set_bi__bcm_valid(false)
+			}
+		}, [initial.bi__bcm])
+
+		useEffect(() => {
+			set_bi__phase_angle_valid(true)
+
+			if (
+				(initial.bi__phase_angle &&
+					convertToNumber(initial.bi__phase_angle) < 3) ||
+				convertToNumber(initial.bi__phase_angle) > 25
+			) {
+				set_bi__phase_angle_valid(false)
+			}
+		}, [initial.bi__phase_angle])
+	}
 
 	if (!initial) return <></>
 
@@ -17,21 +88,27 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 					</div>
 
 					<div className="space-y-3 pt-1">
-						<div className="grid grid-cols-12 gap-x-4">
-							<div className="col-span-4 flex items-center">
-								<label className="text-sm leading-none font-normal w-full block select-none">
-									Porcentaje de hidratación
-								</label>
+						<AlertMessage valid={bi__hydratation_valid}>
+							<div className="grid grid-cols-12 gap-x-4">
+								<div className="col-span-4 flex items-center">
+									<label className="text-sm leading-none font-normal w-full block select-none">
+										Porcentaje de hidratación
+									</label>
+								</div>
+								<div className="col-span-2 lg:col-span-2">
+									<InputNumber
+										name="bi__hydratation"
+										value={initial.bi__hydratation}
+										onChange={setValue}
+									/>
+								</div>
+								<div className="col-span-3 flex items-center">
+									<label className="leading-none w-full block select-none">
+										%
+									</label>
+								</div>
 							</div>
-							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__hydratation" />
-							</div>
-							<div className="col-span-3 flex items-center">
-								<label className="leading-none w-full block select-none">
-									%
-								</label>
-							</div>
-						</div>
+						</AlertMessage>
 
 						<div className="grid grid-cols-12 gap-x-4">
 							<div className="col-span-4 flex items-center">
@@ -41,7 +118,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__tbm" />
+								<InputNumber
+									name="bi__tbm"
+									value={initial.bi__tbm}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -58,7 +139,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__ecw" />
+								<InputNumber
+									name="bi__ecw"
+									value={initial.bi__ecw}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -75,7 +160,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__icw" />
+								<InputNumber
+									name="bi__icw"
+									value={initial.bi__icw}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -84,56 +173,74 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 							</div>
 						</div>
 
-						<div className="grid grid-cols-12 gap-x-4">
-							<div className="col-span-4 flex items-center">
-								<label className="text-sm leading-none font-normal w-full block select-none">
-									FFM <br />
-									(masa magra)
-								</label>
+						<AlertMessage valid={bi__ffm_valid}>
+							<div className="grid grid-cols-12 gap-x-4">
+								<div className="col-span-4 flex items-center">
+									<label className="text-sm leading-none font-normal w-full block select-none">
+										FFM <br />
+										(masa magra)
+									</label>
+								</div>
+								<div className="col-span-2 lg:col-span-2">
+									<InputNumber
+										name="bi__ffm"
+										value={initial.bi__ffm}
+										onChange={setValue}
+									/>
+								</div>
+								<div className="col-span-3 flex items-center">
+									<label className="leading-none w-full block select-none">
+										kg
+									</label>
+								</div>
 							</div>
-							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__ffm" />
-							</div>
-							<div className="col-span-3 flex items-center">
-								<label className="leading-none w-full block select-none">
-									kg
-								</label>
-							</div>
-						</div>
+						</AlertMessage>
 
-						<div className="grid grid-cols-12 gap-x-4">
-							<div className="col-span-4 flex items-center">
-								<label className="text-sm leading-none font-normal w-full block select-none">
-									FM <br />
-									(masa grasa)
-								</label>
+						<AlertMessage valid={bi__fm_valid}>
+							<div className="grid grid-cols-12 gap-x-4">
+								<div className="col-span-4 flex items-center">
+									<label className="text-sm leading-none font-normal w-full block select-none">
+										FM <br />
+										(masa grasa)
+									</label>
+								</div>
+								<div className="col-span-2 lg:col-span-2">
+									<InputNumber
+										name="bi__fm"
+										value={initial.bi__fm}
+										onChange={setValue}
+									/>
+								</div>
+								<div className="col-span-3 flex items-center">
+									<label className="leading-none w-full block select-none">
+										kg
+									</label>
+								</div>
 							</div>
-							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__fm" />
-							</div>
-							<div className="col-span-3 flex items-center">
-								<label className="leading-none w-full block select-none">
-									kg
-								</label>
-							</div>
-						</div>
+						</AlertMessage>
 
-						<div className="grid grid-cols-12 gap-x-4">
-							<div className="col-span-4 flex items-center">
-								<label className="text-sm leading-none font-normal w-full block select-none">
-									BCM <br />
-									(masa celular, kg)
-								</label>
+						<AlertMessage valid={bi__bcm_valid}>
+							<div className="grid grid-cols-12 gap-x-4">
+								<div className="col-span-4 flex items-center">
+									<label className="text-sm leading-none font-normal w-full block select-none">
+										BCM <br />
+										(masa celular, kg)
+									</label>
+								</div>
+								<div className="col-span-2 lg:col-span-2">
+									<InputNumber
+										name="bi__bcm"
+										value={initial.bi__bcm}
+										onChange={setValue}
+									/>
+								</div>
+								<div className="col-span-3 flex items-center">
+									<label className="leading-none w-full block select-none">
+										kg
+									</label>
+								</div>
 							</div>
-							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__bcm" />
-							</div>
-							<div className="col-span-3 flex items-center">
-								<label className="leading-none w-full block select-none">
-									kg
-								</label>
-							</div>
-						</div>
+						</AlertMessage>
 
 						<div className="grid grid-cols-12 gap-x-4">
 							<div className="col-span-4 flex items-center">
@@ -143,7 +250,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__bcm_h" />
+								<InputNumber
+									name="bi__bcm_h"
+									value={initial.bi__bcm_h}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -160,7 +271,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__asmm" />
+								<InputNumber
+									name="bi__asmm"
+									value={initial.bi__asmm}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -177,7 +292,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__smi" />
+								<InputNumber
+									name="bi__smi"
+									value={initial.bi__smi}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -193,7 +312,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__body_fat" />
+								<InputNumber
+									name="bi__body_fat"
+									value={initial.bi__body_fat}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -211,7 +334,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__hydratation" />
+								<InputNumber
+									name="bi__resistance"
+									value={initial.bi__resistance}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -229,7 +356,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__hydratation" />
+								<InputNumber
+									name="bi__reactance"
+									value={initial.bi__reactance}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center">
 								<label className="leading-none w-full block select-none">
@@ -238,21 +369,27 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 							</div>
 						</div>
 
-						<div className="grid grid-cols-12 gap-x-4">
-							<div className="col-span-4 flex items-center">
-								<label className="text-sm leading-none font-normal w-full block select-none">
-									Ángulo de fase (PA)
-								</label>
+						<AlertMessage valid={bi__phase_angle_valid}>
+							<div className="grid grid-cols-12 gap-x-4">
+								<div className="col-span-4 flex items-center">
+									<label className="text-sm leading-none font-normal w-full block select-none">
+										Ángulo de fase (PA)
+									</label>
+								</div>
+								<div className="col-span-2 lg:col-span-2">
+									<InputNumber
+										name="bi__phase_angle"
+										value={initial.bi__phase_angle}
+										onChange={setValue}
+									/>
+								</div>
+								<div className="col-span-3 flex items-center">
+									<label className="leading-none w-full block select-none">
+										%
+									</label>
+								</div>
 							</div>
-							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__hydratation" />
-							</div>
-							<div className="col-span-3 flex items-center">
-								<label className="leading-none w-full block select-none">
-									%
-								</label>
-							</div>
-						</div>
+						</AlertMessage>
 
 						<div className="grid grid-cols-12 gap-x-4">
 							<div className="col-span-4 flex items-center">
@@ -262,7 +399,11 @@ export const OtrasMedidasDeComposicionCorporal = () => {
 								</label>
 							</div>
 							<div className="col-span-2 lg:col-span-2">
-								<input type="text" name="bi__hydratation" />
+								<InputNumber
+									name="bi__standarized_phase_angle"
+									value={initial.bi__standarized_phase_angle}
+									onChange={setValue}
+								/>
 							</div>
 							<div className="col-span-3 flex items-center"></div>
 						</div>

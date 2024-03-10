@@ -1,42 +1,12 @@
-import { ChangeEvent } from 'react'
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useCheckboxHandleChange } from '../../(hooks)'
+import { useCheckboxHandleChange, useInputHandleChange } from '../../(hooks)'
 
 export const TipoDeTratamientoNutricionalIndicado = () => {
-	const { initial, setInitial } = useCrdStore()
+	const { initial } = useCrdStore()
 
 	const { handleChange } = useCheckboxHandleChange('initial')
-
-	const handleChangeSONoption = (e: ChangeEvent<HTMLInputElement>) => {
-		if (!initial) return
-		const { value } = e.target
-
-		const node = [...initial.nti__son__option]
-
-		if (node.indexOf(value) >= 0) {
-			node.splice(node.indexOf(value), 1)
-		} else {
-			node.push(value)
-		}
-
-		setInitial({ ...initial, nti__son__option: node })
-	}
-
-	const handleChangeENoption = (e: ChangeEvent<HTMLInputElement>) => {
-		if (!initial) return
-		const { value } = e.target
-
-		const node = [...initial.nti__en__option]
-
-		if (node.indexOf(value) >= 0) {
-			node.splice(node.indexOf(value), 1)
-		} else {
-			node.push(value)
-		}
-
-		setInitial({ ...initial, nti__en__option: node })
-	}
+	const { handleInputChange } = useInputHandleChange('initial')
 
 	if (!initial) return <></>
 
@@ -84,152 +54,142 @@ export const TipoDeTratamientoNutricionalIndicado = () => {
 							</span>
 						</label>
 
-						{initial.nti__son__option && (
-							<div className="pb-3 pl-8 space-y-2">
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Hipercalórica/Hperproteica con ingrediente Músculo Específico (HBM y/o Leucina)"
-											checked={
-												initial.nti__son__option.indexOf(
-													'Hipercalórica/Hperproteica con ingrediente Músculo Específico (HBM y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeSONoption}
-										/>
-										<span>
-											Hipercalórica/Hperproteica con ingrediente Músculo
-											Específico (HBM y/o Leucina)
-										</span>
-									</label>
-								</div>
+						<div className="pb-3 pl-8 space-y-2">
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__son__option"
+										value="Hipercalórica/Hperproteica con ingrediente Músculo Específico (HBM y/o Leucina)"
+										checked={
+											initial.nti__son__option ===
+											'Hipercalórica/Hperproteica con ingrediente Músculo Específico (HBM y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Hipercalórica/Hperproteica con ingrediente Músculo
+										Específico (HBM y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Hipercalórica/Hiperproteica sin ingrediente Músculo Específico (HMB y/o Leucina)"
-											checked={
-												initial.nti__son__option.indexOf(
-													'Hipercalórica/Hiperproteica sin ingrediente Músculo Específico (HMB y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeSONoption}
-										/>
-										<span>
-											Hipercalórica/Hiperproteica sin ingrediente Músculo
-											Específico (HMB y/o Leucina)
-										</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__son__option"
+										value="Hipercalórica/Hiperproteica sin ingrediente Músculo Específico (HMB y/o Leucina)"
+										checked={
+											initial.nti__son__option ===
+											'Hipercalórica/Hiperproteica sin ingrediente Músculo Específico (HMB y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Hipercalórica/Hiperproteica sin ingrediente Músculo
+										Específico (HMB y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Normo calórica/Normoproteica sin ingrediente Músculo Específico (HMB y/o Leucina)"
-											checked={
-												initial.nti__son__option.indexOf(
-													'Normo calórica/Normoproteica sin ingrediente Músculo Específico (HMB y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeSONoption}
-										/>
-										<span>
-											Normo calórica/Normoproteica sin ingrediente Músculo
-											Específico (HMB y/o Leucina)
-										</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__son__option"
+										value="Normo calórica/Normoproteica sin ingrediente Músculo Específico (HMB y/o Leucina)"
+										checked={
+											initial.nti__son__option ===
+											'Normo calórica/Normoproteica sin ingrediente Músculo Específico (HMB y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Normo calórica/Normoproteica sin ingrediente Músculo
+										Específico (HMB y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)"
-											checked={
-												initial.nti__son__option.indexOf(
-													'Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeSONoption}
-										/>
-										<span>
-											Específica para Diabético Hipercalórica/Hiperproteica con
-											ingrediente Músculo Específico (HMB y/o Leucina)
-										</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__son__option"
+										value="Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)"
+										checked={
+											initial.nti__son__option ===
+											'Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Específica para Diabético Hipercalórica/Hiperproteica con
+										ingrediente Músculo Específico (HMB y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Especifica para diabético normo calórica/normoproteica sin ingrediente Músculo Específico (HMB y Leucina)"
-											checked={
-												initial.nti__son__option.indexOf(
-													'Especifica para diabético normo calórica/normoproteica sin ingrediente Músculo Específico (HMB y Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeSONoption}
-										/>
-										<span>
-											Especifica para diabético normo calórica/normoproteica sin
-											ingrediente Músculo Específico (HMB y Leucina)
-										</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__son__option"
+										value="Especifica para diabético normo calórica/normoproteica sin ingrediente Músculo Específico (HMB y Leucina)"
+										checked={
+											initial.nti__son__option ===
+											'Especifica para diabético normo calórica/normoproteica sin ingrediente Músculo Específico (HMB y Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Especifica para diabético normo calórica/normoproteica sin
+										ingrediente Músculo Específico (HMB y Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Fórmulas peptídicas"
-											checked={
-												initial.nti__son__option.indexOf(
-													'Fórmulas peptídicas'
-												) >= 0
-											}
-											onChange={handleChangeSONoption}
-										/>
-										<span>Fórmulas peptídicas</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__son__option"
+										value="Fórmulas peptídicas"
+										checked={initial.nti__son__option === 'Fórmulas peptídicas'}
+										onChange={handleChange}
+									/>
+									<span>Fórmulas peptídicas</span>
+								</label>
+							</div>
 
-								<div>
-									<div className="flex gap-x-6 items-start">
-										<label className="input-checkbox">
+							<div className="flex gap-x-6 items-start">
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__son__option"
+										value="Otras (especifique)"
+										checked={initial.nti__son__option === 'Otras (especifique)'}
+										onChange={handleChange}
+									/>
+									<span>Otras (especifique)</span>
+								</label>
+
+								<div className="flex-1 relative -top-2">
+									{initial.nti__son__option === 'Otras (especifique)' && (
+										<>
 											<input
-												type="checkbox"
-												value="Otras (especifique)"
-												checked={
-													initial.nti__son__option.indexOf(
-														'Otras (especifique)'
-													) >= 0
-												}
-												onChange={handleChangeSONoption}
+												type="text"
+												name="nti__son__other_description"
+												value={initial.nti__son__other_description}
+												className="w-full"
+												onChange={handleInputChange}
 											/>
-											<span>Otras (especifique)</span>
-										</label>
-									</div>
-
-									<div className="flex-1 relative -top-2">
-										{initial.nti__son__option.indexOf('Otras (especifique)') >=
-											0 && (
-											<>
-												<input
-													type="text"
-													name="nti__son__other_description"
-													value={initial.nti__son__other_description}
-													className="w-full"
-												/>
-											</>
-										)}
-									</div>
+										</>
+									)}
 								</div>
 							</div>
-						)}
+						</div>
 					</div>
 
 					<div className="w-full grid gap-y-3">
@@ -244,166 +204,158 @@ export const TipoDeTratamientoNutricionalIndicado = () => {
 							<span>Nutrición enteral, tipo de fórmula</span>
 						</label>
 
-						{initial.nti__en__option && (
-							<div className="pb-3 pl-8 space-y-2">
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Hipercalórica/Hiperproteica con ingrediente Músculo Especifico (HMB y/o Leucina)"
-											checked={
-												initial.nti__en__option.indexOf(
-													'Hipercalórica/Hiperproteica con ingrediente Músculo Especifico (HMB y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeENoption}
-										/>
-										<span>
-											Hipercalórica/Hiperproteica con ingrediente Músculo
-											Especifico (HMB y/o Leucina)
-										</span>
-									</label>
-								</div>
+						<div className="pb-3 pl-8 space-y-2">
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__en__option"
+										value="Hipercalórica/Hiperproteica con ingrediente Músculo Especifico (HMB y/o Leucina)"
+										checked={
+											initial.nti__en__option ===
+											'Hipercalórica/Hiperproteica con ingrediente Músculo Especifico (HMB y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Hipercalórica/Hiperproteica con ingrediente Músculo
+										Especifico (HMB y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Hipercalórica/Hiperproteica sin ingrediente Músculo Específico (HMB y/o Leucina)"
-											checked={
-												initial.nti__en__option.indexOf(
-													'Hipercalórica/Hiperproteica sin ingrediente Músculo Específico (HMB y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeENoption}
-										/>
-										<span>
-											Hipercalórica/Hiperproteica sin ingrediente Músculo
-											Específico (HMB y/o Leucina)
-										</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__en__option"
+										value="Hipercalórica/Hiperproteica sin ingrediente Músculo Específico (HMB y/o Leucina)"
+										checked={
+											initial.nti__en__option ===
+											'Hipercalórica/Hiperproteica sin ingrediente Músculo Específico (HMB y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Hipercalórica/Hiperproteica sin ingrediente Músculo
+										Específico (HMB y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Normo calórica/Normoproteica sin ingrediente Músculo Específico (HMB y/o Leucina)"
-											checked={
-												initial.nti__en__option.indexOf(
-													'Normo calórica/Normoproteica sin ingrediente Músculo Específico (HMB y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeENoption}
-										/>
-										<span>
-											Normo calórica/Normoproteica sin ingrediente Músculo
-											Específico (HMB y/o Leucina)
-										</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__en__option"
+										value="Normo calórica/Normoproteica sin ingrediente Músculo Específico (HMB y/o Leucina)"
+										checked={
+											initial.nti__en__option ===
+											'Normo calórica/Normoproteica sin ingrediente Músculo Específico (HMB y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Normo calórica/Normoproteica sin ingrediente Músculo
+										Específico (HMB y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)"
-											checked={
-												initial.nti__en__option.indexOf(
-													'Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeENoption}
-										/>
-										<span>
-											Específica para Diabético Hipercalórica/Hiperproteica con
-											ingrediente Músculo Específico (HMB y/o Leucina)
-										</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__en__option"
+										value="Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)"
+										checked={
+											initial.nti__en__option ===
+											'Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Específica para Diabético Hipercalórica/Hiperproteica con
+										ingrediente Músculo Específico (HMB y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)"
-											checked={
-												initial.nti__en__option.indexOf(
-													'Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)'
-												) >= 0
-											}
-											onChange={handleChangeENoption}
-										/>
-										<span>
-											Específica para Diabético Hipercalórica/Hiperproteica con
-											ingrediente Músculo Específico (HMB y/o Leucina)
-										</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__en__option"
+										value="Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)"
+										checked={
+											initial.nti__en__option ===
+											'Específica para Diabético Hipercalórica/Hiperproteica con ingrediente Músculo Específico (HMB y/o Leucina)'
+										}
+										onChange={handleChange}
+									/>
+									<span>
+										Específica para Diabético Hipercalórica/Hiperproteica con
+										ingrediente Músculo Específico (HMB y/o Leucina)
+									</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Fórmulas peptídicas"
-											checked={
-												initial.nti__en__option.indexOf(
-													'Fórmulas peptídicas'
-												) >= 0
-											}
-											onChange={handleChangeENoption}
-										/>
-										<span>Fórmulas peptídicas</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__en__option"
+										value="Fórmulas peptídicas"
+										checked={initial.nti__en__option === 'Fórmulas peptídicas'}
+										onChange={handleChange}
+									/>
+									<span>Fórmulas peptídicas</span>
+								</label>
+							</div>
 
-								<div>
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Específica para paciente nefrópata"
-											checked={
-												initial.nti__en__option.indexOf(
-													'Específica para paciente nefrópata'
-												) >= 0
-											}
-											onChange={handleChangeENoption}
-										/>
-										<span>Específica para paciente nefrópata</span>
-									</label>
-								</div>
+							<div>
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__en__option"
+										value="Específica para paciente nefrópata"
+										checked={
+											initial.nti__en__option ===
+											'Específica para paciente nefrópata'
+										}
+										onChange={handleChange}
+									/>
+									<span>Específica para paciente nefrópata</span>
+								</label>
+							</div>
 
-								<div className="flex gap-x-6 items-start">
-									<label className="input-checkbox">
-										<input
-											type="checkbox"
-											value="Otras (especifique)"
-											checked={
-												initial.nti__en__option.indexOf(
-													'Otras (especifique)'
-												) >= 0
-											}
-											onChange={handleChangeENoption}
-										/>
-										<span>Otras (especifique)</span>
-									</label>
+							<div className="flex gap-x-6 items-start">
+								<label className="input-checkbox">
+									<input
+										type="radio"
+										name="nti__en__option"
+										value="Otras (especifique)"
+										checked={initial.nti__en__option === 'Otras (especifique)'}
+										onChange={handleChange}
+									/>
+									<span>Otras (especifique)</span>
+								</label>
 
-									<div className="flex-1 relative -top-2">
-										{initial.nti__en__option.indexOf('Otras (especifique)') >=
-											0 && (
-											<>
-												<input
-													type="text"
-													name="nti__en__other_description"
-													value={initial.nti__en__other_description}
-													className="w-full"
-												/>
-											</>
-										)}
-									</div>
+								<div className="flex-1 relative -top-2">
+									{initial.nti__en__option === 'Otras (especifique)' && (
+										<>
+											<input
+												type="text"
+												name="nti__en__other_description"
+												value={initial.nti__en__other_description}
+												className="w-full"
+												onChange={handleInputChange}
+											/>
+										</>
+									)}
 								</div>
 							</div>
-						)}
+						</div>
 					</div>
 				</section>
 			</FormGroup>

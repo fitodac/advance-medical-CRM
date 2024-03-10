@@ -1,12 +1,18 @@
 import { useCrdStore } from '@/store'
 import { FormGroup } from '..'
-import { useSetDate, useCheckboxHandleChange } from '../../(hooks)'
+import {
+	useSetValue,
+	useCheckboxHandleChange,
+	useInputHandleChange,
+} from '../../(hooks)'
 import { InputDate } from '@/components'
 
 export const FechaValoracion = () => {
 	const { initial } = useCrdStore()
 	const { handleChange } = useCheckboxHandleChange('initial')
-	const { setDate } = useSetDate('initial')
+	const { handleInputChange } = useInputHandleChange('initial')
+
+	const { setValue } = useSetValue('initial')
 
 	if (!initial) return <></>
 
@@ -22,22 +28,35 @@ export const FechaValoracion = () => {
 							<InputDate
 								name="valuation_date"
 								value={initial.valuation_date}
-								onChange={(e) => setDate(e)}
+								onChange={setValue}
 							/>
 						</div>
 					</div>
 
 					<div className="grid gap-y-3">
-						<label className="input-checkbox">
-							<input
-								type="checkbox"
-								name="hospitalization"
-								value="y"
-								checked={initial.hospitalization === 'y'}
-								onChange={handleChange}
-							/>
-							<span>Hospitalización, expecifique motivo de ingreso</span>
-						</label>
+						<div className="flex gap-x-6 items-start">
+							<label className="input-checkbox">
+								<input
+									type="checkbox"
+									name="hospitalization"
+									value="y"
+									checked={initial.hospitalization === 'y'}
+									onChange={handleChange}
+								/>
+								<span>Hospitalización, expecifique motivo de ingreso</span>
+							</label>
+
+							{initial.hospitalization === 'y' && (
+								<div className="flex-1 relative -top-2">
+									<input
+										type="text"
+										name="hospitalization_reason"
+										value={initial.hospitalization_reason}
+										onChange={handleInputChange}
+									/>
+								</div>
+							)}
+						</div>
 
 						<label className="input-checkbox">
 							<input
