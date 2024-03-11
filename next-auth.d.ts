@@ -1,8 +1,12 @@
-import { JWT, Session, User } from 'next-auth/next'
+import {
+	JWT,
+	Session,
+	// User
+} from 'next-auth/next'
 
 declare module 'next-auth' {
 	export interface User {
-		id?: number
+		id: number
 		name?: string | null | undefined
 		firstname?: string
 		lastname?: string
@@ -11,14 +15,14 @@ declare module 'next-auth' {
 		role?: string
 		access_token?: string
 	}
-}
 
-export interface Session {
-	accessToken: string
-	user: User
-}
+	export interface Session {
+		accessToken: string
+		user: User
+	}
 
-export interface JWT {
-	user: User
-	access_token: string
+	export interface JWT {
+		user: User
+		access_token: string
+	}
 }

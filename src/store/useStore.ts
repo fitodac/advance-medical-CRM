@@ -54,3 +54,13 @@ export const useCrdStore = create<CrdStore>()((set) => ({
 	// currentForm: 'visit1',
 	setCurrentForm: (state) => set({ currentForm: state }),
 }))
+
+interface Store {
+	loading: boolean
+	setLoading: (state: boolean) => void
+}
+
+export const useStore = create<Store>()((set) => ({
+	loading: false,
+	setLoading: (state) => set({ loading: state }),
+}))

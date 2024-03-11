@@ -1,20 +1,34 @@
 import type { Metadata } from 'next'
 import { api } from '@/config'
-import { useFetchList } from '@/hooks'
-import { Patients } from './(components)'
+import { useFetchList, useGetSession } from '@/hooks'
+import { List, NewPatient } from './(components)'
+import { PageHeader, Breadcrumbs } from '@/components'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • Pacientes`,
 }
 
 const PatientsPage = async () => {
-	const list = await useFetchList(api.patients.get)
+	if (!api.patients) return <></>
+
+	const list = await useFetchList(api.patients)
+
+	const session = await useGetSession()
+	if (!session) return <></>
+
+	const user = session.user
 
 	return (
 		<>
-			{list && <Patients data={list.data.data} />}
+			<PageHeader title="Listado de pacientes">
+				{user.role === 'doctor' && <NewPatient />}
+			</PageHeader>
 
-			{/* <pre>{JSON.stringify(list, null, 2)}</pre> */}
+			<Breadcrumbs data={[{ title: 'Lista de pacientes', current: true }]} />
+
+			{list && <List data={list.data.data} />}
+
+			{/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
 		</>
 	)
 }

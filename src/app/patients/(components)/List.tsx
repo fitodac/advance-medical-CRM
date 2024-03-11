@@ -1,6 +1,7 @@
 'use client'
 import { useSession } from 'next-auth/react'
 import { useCrdStore } from '@/store'
+import { DeletePatient } from '.'
 import {
 	PageHeader,
 	Breadcrumbs,
@@ -27,34 +28,15 @@ const thead = [
 	{ title: 'Acciones', class: 'text-end' },
 ]
 
-export const Patients = ({ data }: { data: { [key: string]: any } }) => {
+export const List = ({ data }: { data: { [key: string]: any } }) => {
 	const { data: session, status } = useSession()
 	// console.log('session', session)
 	const { setPatient } = useCrdStore()
 
-	const createNewPatient = () => {
-		console.log('createNewPatient')
-	}
-
 	return (
 		<>
-			<PageHeader title="Listado de pacientes">
-				{session && session.user && session.user.role === 'doctor' && (
-					<div>
-						<Button
-							className="bg-teal border-teal text-white"
-							onClick={createNewPatient}
-						>
-							Nuevo paciente
-						</Button>
-					</div>
-				)}
-			</PageHeader>
-
-			<Breadcrumbs data={[{ title: 'Lista de pacientes', current: true }]} />
-
 			<section className="w-full overflow-x-hidden pt-5">
-				{data && session?.user && (
+				{data && (
 					<Table
 						header={
 							'doctor' === session?.user.role
@@ -145,7 +127,8 @@ export const Patients = ({ data }: { data: { [key: string]: any } }) => {
 											</span>
 										)}
 
-										<Button>Borrar</Button>
+
+										<DeletePatient id={patient.id} />
 
 										{/* 
 										<Delete

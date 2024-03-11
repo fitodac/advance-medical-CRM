@@ -1,4 +1,3 @@
-import { ToastContainer } from 'react-toastify'
 import { Navbar, Header } from '@/components'
 
 const MainTemplate = ({
@@ -32,12 +31,6 @@ const MainTemplate = ({
 					</div>
 				</section>
 			</div>
-
-			<ToastContainer
-				position="bottom-right"
-				hideProgressBar={true}
-				autoClose={3000}
-			/>
 		</>
 	)
 }
