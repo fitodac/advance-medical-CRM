@@ -3,17 +3,13 @@ import { api } from '@/config'
 
 export const useFetchList = async (apiURL: string) => {
 	const { sessionCookie } = await useGetToken()
-
 	// const { token } = await useGetToken()
 
 	try {
 		const resp = await fetch(apiURL, {
-			cache: 'no-store',
 			headers: {
-				// Authorization: token,
 				Cookie: sessionCookie,
 			},
-			next: { tags: ['getList'] },
 		})
 
 		if (resp.ok) {
@@ -26,4 +22,22 @@ export const useFetchList = async (apiURL: string) => {
 	}
 }
 
-export const useGetCRD = async (patientId: string) => {}
+export const useGetCRD = async (patientId: string) => {
+	const { sessionCookie } = await useGetToken()
+
+	try {
+		const resp = await fetch(`${api.visits}/${patientId}`, {
+			headers: {
+				Cookie: sessionCookie,
+			},
+		})
+
+		if (resp.ok) {
+			const resp_json = await resp.json()
+			return resp_json
+		}
+	} catch (err) {
+		console.log('Error', err)
+		return null
+	}
+}

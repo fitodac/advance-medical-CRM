@@ -15,11 +15,11 @@ interface ServerApi {
 }
 
 export const api: Api = {
-	doctors: `${laravelApiPath}/doctors`,
+	doctors: `${apiPath}/doctors`,
 	patients: `${apiPath}/patients`,
-	centers: `${laravelApiPath}/centers`,
-	users: `${laravelApiPath}/users`,
-	visits: `${laravelApiPath}/visit`,
+	centers: `${apiPath}/centers`,
+	users: `${apiPath}/users`,
+	visits: `${apiPath}/crd`,
 }
 
 export const serverApi: ServerApi = {
@@ -27,5 +27,8 @@ export const serverApi: ServerApi = {
 		index: `${laravelApiPath}/patients`,
 		post: `${laravelApiPath}/patients/create`,
 		delete: `${laravelApiPath}/patients/delete`,
+	},
+	visits: {
+		index: `${laravelApiPath}/visit`,
 	},
 }

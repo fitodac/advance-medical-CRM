@@ -1,6 +1,7 @@
 import { Button } from '@/components'
 import { useStore } from '@/store'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 interface Props {
 	id: number
@@ -8,6 +9,7 @@ interface Props {
 
 export const DeletePatient = ({ id }: Props) => {
 	const { setLoading } = useStore()
+	const router = useRouter()
 
 	const confirmDeletion = async () => {
 		setLoading(true)
@@ -18,14 +20,14 @@ export const DeletePatient = ({ id }: Props) => {
 
 		if (resp.ok) {
 			const patient = await resp.json()
-			toast.success(patient.message.message)
-			const checkbox = document.getElementById(`modal-${id}`)
-			if (checkbox) checkbox.checked = false
-			setLoading(false)
+			document.getElementById(`modal-${id}`)
+			router.refresh()
 
-			console.log(patient)
+			setTimeout(() => {
+				toast.success(patient.message.message)
+				setLoading(false)
+			}, 500)
 		}
-		// setLoading(true)
 	}
 
 	return (

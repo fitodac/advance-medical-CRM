@@ -10,6 +10,8 @@ export const Dashboard = (): JSX.Element => {
 
 	const user = session ? session.user : null
 
+	if (!user) return <></>
+
 	return (
 		<>
 			<section className="w-full overflow-x-hidden pt-5">
@@ -47,17 +49,18 @@ export const Dashboard = (): JSX.Element => {
 							</div>
 						)}
 
-						{'doctor' === user.role && (
-							<div>
-								<Link href="/medical-centers" className={boxClassName}>
-									<div className="font-bold">Centros médicos</div>
-									<div className="text-sm font-light leading-tight">
-										Aquí podrás administrar los diferentes centros médicos con
-										los que contamos
-									</div>
-								</Link>
-							</div>
-						)}
+						{'admin' === user.role ||
+							('superadmin' === user.role && (
+								<div>
+									<Link href="/medical-centers" className={boxClassName}>
+										<div className="font-bold">Centros médicos</div>
+										<div className="text-sm font-light leading-tight">
+											Aquí podrás administrar los diferentes centros médicos con
+											los que contamos
+										</div>
+									</Link>
+								</div>
+							))}
 
 						<div>
 							<Link href="/documents" className={boxClassName}>

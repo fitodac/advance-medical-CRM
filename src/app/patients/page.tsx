@@ -8,12 +8,20 @@ export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • Pacientes`,
 }
 
-const PatientsPage = async () => {
+const PatientsPage = async ({
+	searchParams,
+}: {
+	searchParams: { page: string }
+}) => {
 	if (!api.patients) return <></>
 
-	const list = await useFetchList(api.patients)
+	const url = searchParams.page
+		? `${api.patients}?page=${searchParams.page}`
+		: api.patients
+	const list = await useFetchList(url)
 
 	const session = await useGetSession()
+
 	if (!session) return <></>
 
 	const user = session.user
@@ -26,9 +34,10 @@ const PatientsPage = async () => {
 
 			<Breadcrumbs data={[{ title: 'Lista de pacientes', current: true }]} />
 
-			{list && <List data={list.data.data} />}
+			{list && <List content={list.data} />}
 
-			{/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
+			{/* <pre>{JSON.stringify(list, null, 2)}</pre> */}
+			<div className="h-12" />
 		</>
 	)
 }

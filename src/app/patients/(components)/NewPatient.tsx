@@ -17,10 +17,11 @@ export const NewPatient = () => {
 
 		if (resp.ok) {
 			const patient = await resp.json()
-			// console.log(patient)
 			toast.success(patient.message.message)
-			router.push(`/crd/${patient.data.id}`)
+			router.refresh()
+
 			setTimeout(() => {
+				router.push(`/crd/${patient.data.id}`)
 				setLoading(false)
 			}, 500)
 		}

@@ -9,6 +9,9 @@ export const useInitializeForm = () => {
 	const { setInitial, setVisit1 } = useCrdStore()
 
 	const initializeForm = (visit: any) => {
+		setInitial(null)
+		setVisit1(null)
+
 		const dataInitial = visit.filter(
 			(item: any) => item.visit_type === 'initial'
 		)[0]

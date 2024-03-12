@@ -1,7 +1,6 @@
-import { type NextRequest } from 'next/server'
+import type { NextRequest } from 'next/server'
 import { serverApi } from '@/config'
 import { useGetToken } from '@/hooks'
-import { revalidateTag } from 'next/cache'
 
 export async function DELETE(
 	req: NextRequest,
@@ -18,9 +17,6 @@ export async function DELETE(
 		})
 
 		const resp_json = await resp.json()
-
-		revalidateTag('getList')
-
 		return Response.json(resp_json)
 	} catch (err) {
 		return Response.json(err)

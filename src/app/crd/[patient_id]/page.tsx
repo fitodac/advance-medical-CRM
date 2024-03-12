@@ -1,36 +1,15 @@
 import { Form } from '../(components)'
 import { PageHeader, Breadcrumbs } from '@/components'
 import type { Metadata } from 'next'
-import { useGetToken } from '@/hooks'
+import { useGetToken, useGetCRD } from '@/hooks'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • CRD`,
 }
 
 const CrdPage = async ({ params }: { params: { patient_id: string } }) => {
-	const { sessionCookie } = await useGetToken()
-	let form_data: {
-		success: boolean
-		data: { [key: string]: any }
-		messages: ''
-	} | null = null
-
-	try {
-		const fetchData = await fetch(
-			`${process.env.NEXTAUTH_URL}/api/crd/${params.patient_id}`,
-			{
-				headers: {
-					Cookie: sessionCookie,
-				},
-			}
-		)
-		const resp = await fetchData.json()
-		if (resp.success) {
-			form_data = resp
-		}
-	} catch (err) {
-		console.log('Error', err)
-	}
+	const form_data = await useGetCRD(params.patient_id)
+	console.log(await form_data)
 
 	return (
 		<div>
@@ -44,6 +23,8 @@ const CrdPage = async ({ params }: { params: { patient_id: string } }) => {
 			/>
 
 			{form_data && <Form retrievedData={form_data} />}
+
+			<pre>{JSON.stringify(form_data, null, 2)}</pre>
 		</div>
 	)
 }

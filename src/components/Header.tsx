@@ -2,11 +2,13 @@
 import { useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export const Header = (): JSX.Element => {
 	const { data: session } = useSession()
 	const user = session ? session.user : null
 	const [dd, setDd] = useState<number>(0)
+	const router = useRouter()
 
 	return (
 		<header className="bg-primary border-b border-primary w-full px-5 py-2 flex justify-between items-center">
@@ -57,7 +59,12 @@ export const Header = (): JSX.Element => {
 											</li>
 											<li>
 												<button
-													onClick={() => signOut()}
+													onClick={() => {
+														signOut({ redirect: false }).then(() => {
+															console.log('signed out')
+															// 	router.push('/profile')
+														})
+													}}
 													className="block select-none transition-all hover:text-primary"
 												>
 													Cerrar sesión
