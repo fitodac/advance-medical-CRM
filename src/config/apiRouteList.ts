@@ -30,5 +30,6 @@ export const serverApi: ServerApi = {
 	},
 	visits: {
 		index: `${laravelApiPath}/visit`,
+		post: `${laravelApiPath}/visit`,
 	},
 }

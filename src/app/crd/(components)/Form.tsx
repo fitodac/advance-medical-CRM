@@ -1,9 +1,10 @@
 'use client'
 import { useEffect } from 'react'
+import { useState } from 'react'
 import { useCrdStore } from '@/store'
 import { Sidebar, FormInitial, FormVisit1 } from '.'
 import { toast } from 'react-toastify'
-import { useInitializeForm } from '../(hooks)'
+import { useInitializeForm, useResetForm } from '../(hooks)'
 
 export const Form = ({
 	retrievedData,
@@ -14,18 +15,27 @@ export const Form = ({
 		messages: ''
 	}
 }) => {
-	const { currentForm } = useCrdStore()
+	const { currentForm, setPatient } = useCrdStore()
 	const { initializeForm } = useInitializeForm()
+	const { resetForm } = useResetForm()
+	const [init, setInit] = useState(false)
 
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		if (retrievedData.success) {
+			setPatient(retrievedData.data.patient)
 			initializeForm(retrievedData.data)
-			// console.log('DATA', retrievedData)
 		} else {
 			toast.error(
 				'El servidor ha devuelto un error al tratar de obtener la información del formulario'
 			)
 		}
+
+		setInit(true)
+
+		/**
+		 * Cuando se desmonta el componente, se resetea el store
+		 */
+		return () => resetForm()
 	}, [])
 
 	return (
@@ -37,8 +47,12 @@ export const Form = ({
 					<Sidebar />
 
 					<div className="col-span-4 max-h-[80.5vh] scrollbar scrollbar-thumb-slate-400 scrollbar-track-slate-100 pt-4 pb-28 pr-10 xl:pr-14">
-						{currentForm === 'initial' && <FormInitial />}
-						{currentForm === 'visit1' && <FormVisit1 />}
+						{init && (
+							<>
+								{currentForm === 'initial' && <FormInitial />}
+								{currentForm === 'visit1' && <FormVisit1 />}
+							</>
+						)}
 					</div>
 				</div>
 			</section>

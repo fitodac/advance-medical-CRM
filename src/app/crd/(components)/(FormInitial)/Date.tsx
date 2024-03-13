@@ -3,14 +3,14 @@ import { InputDate } from '@/components'
 import { useSetValue } from '../../(hooks)'
 
 export const Date = () => {
-	const { initial, patient } = useCrdStore()
+	const { initial, patient, initialErrors, setInitialErrors } = useCrdStore()
 	const { setValue } = useSetValue('initial')
 
 	if (!initial) return <></>
 
 	return (
 		<>
-			<div className="space-y-2">
+			<div id="R4E5T2" className="space-y-2">
 				<div className="leading-none mt-4">
 					<label htmlFor="">Paciente</label>
 					<div className="text-xl font-semibold">{patient?.code}</div>
@@ -33,13 +33,19 @@ export const Date = () => {
 							name="date"
 							value={initial.date}
 							onChange={setValue}
+							className={initialErrors.date ? 'input-error' : ''}
+							onKeyUp={() => {
+								setInitialErrors({ date: false })
+							}}
 						/>
 					</div>
 				</div>
 
-				<div className="text-pink-500 text-sm leading-tight mt-1">
-					Complete la fecha de la visita
-				</div>
+				{initialErrors.date && (
+					<div className="text-pink-500 text-sm leading-tight mt-1">
+						Complete la fecha de la visita
+					</div>
+				)}
 			</div>
 		</>
 	)

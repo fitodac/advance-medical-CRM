@@ -36,6 +36,9 @@ export const calculateBmi = (formState: Initial) => {
 	const currentBodyWeight = convertToNumber(current_body_weight)
 	const Height = convertToNumber(height)
 
+	const calc = currentBodyWeight / Math.pow(Height, 2)
+	if (isNaN(calc)) return '0'
+
 	const result = convertToString(currentBodyWeight / Math.pow(Height, 2))
 	return result === 'Infinity' ? '0' : result
 }

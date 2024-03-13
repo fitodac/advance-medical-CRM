@@ -1,7 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { serverApi } from '@/config'
 import { useGetToken } from '@/hooks'
-import { revalidateTag } from 'next/cache'
 
 export async function GET(req: NextRequest) {
 	// { params }: { params: { id: string } }
@@ -18,7 +17,6 @@ export async function GET(req: NextRequest) {
 			headers: {
 				Authorization: token,
 			},
-			// next: { revalidate: 0 },
 		})
 
 		const resp_json = await resp.json()

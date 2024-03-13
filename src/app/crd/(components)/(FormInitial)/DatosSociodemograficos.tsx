@@ -3,7 +3,7 @@ import { useSetValue, useCheckboxHandleChange } from '../../(hooks)'
 import { InputDate } from '@/components'
 
 export const DatosSociodemograficos = () => {
-	const { initial } = useCrdStore()
+	const { initial, initialErrors, setInitialErrors } = useCrdStore()
 	const { handleChange } = useCheckboxHandleChange('initial')
 	const { setValue } = useSetValue('initial')
 
@@ -30,9 +30,19 @@ export const DatosSociodemograficos = () => {
 						<InputDate
 							name="birth_date"
 							value={initial.birth_date}
+							className={initialErrors.birth_date ? 'input-error' : ''}
 							onChange={setValue}
+							onKeyUp={() => {
+								setInitialErrors({ birth_date: false })
+							}}
 						/>
 					</div>
+
+					{initialErrors.birth_date && (
+						<div className="text-pink-500 text-sm leading-tight mt-1">
+							La fecha de nacimiento es requerida
+						</div>
+					)}
 				</div>
 
 				<div className="space-y-1">

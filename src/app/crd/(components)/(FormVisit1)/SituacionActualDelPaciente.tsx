@@ -77,7 +77,18 @@ export const SituacionActualDelPaciente = () => {
 					</div>
 
 					<div className="flex-1">
-						<InputDate name="date" value={visit1.date} onChange={setValue}/>
+						{(visit1.patient_current_situation === 'Alta' ||
+							visit1.patient_current_situation === 'Reingreso' ||
+							visit1.patient_current_situation === 'Deceso') && (
+							<div className="max-w-[150px] space-y-2">
+								<label className="select-none leading-tight block">Fecha</label>
+								<InputDate
+									name="date"
+									value={visit1.patient_current_situation_date}
+									onChange={setValue}
+								/>
+							</div>
+						)}
 					</div>
 				</div>
 			</FormGroup>

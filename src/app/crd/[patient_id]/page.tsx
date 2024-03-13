@@ -1,7 +1,7 @@
 import { Form } from '../(components)'
 import { PageHeader, Breadcrumbs } from '@/components'
 import type { Metadata } from 'next'
-import { useGetToken, useGetCRD } from '@/hooks'
+import { useGetCRD } from '@/hooks'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • CRD`,
@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 const CrdPage = async ({ params }: { params: { patient_id: string } }) => {
 	const form_data = await useGetCRD(params.patient_id)
-	console.log(await form_data)
 
 	return (
 		<div>
@@ -24,7 +23,7 @@ const CrdPage = async ({ params }: { params: { patient_id: string } }) => {
 
 			{form_data && <Form retrievedData={form_data} />}
 
-			<pre>{JSON.stringify(form_data, null, 2)}</pre>
+			{/* <pre>{JSON.stringify(form_data, null, 2)}</pre> */}
 		</div>
 	)
 }

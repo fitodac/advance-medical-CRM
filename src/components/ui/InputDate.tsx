@@ -9,6 +9,8 @@ interface Props {
 	}: {
 		target: { name: string; value: string }
 	}) => void
+	className?: string
+	onKeyUp?: () => void
 }
 
 const mask = (val: string, event: ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +42,13 @@ const mask = (val: string, event: ChangeEvent<HTMLInputElement>) => {
 	return val.trim()
 }
 
-export const InputDate = ({ name, value, onChange }: Props) => {
+export const InputDate = ({
+	name,
+	value,
+	onChange,
+	className,
+	onKeyUp,
+}: Props) => {
 	const [state, setState] = useState(value)
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +66,8 @@ export const InputDate = ({ name, value, onChange }: Props) => {
 				value={state}
 				onChange={handleChange}
 				autoComplete="off"
+				className={className}
+				onKeyUp={onKeyUp}
 			/>
 		</>
 	)

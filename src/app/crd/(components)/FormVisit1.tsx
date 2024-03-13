@@ -1,8 +1,12 @@
 'use client'
+import type { FormEvent } from 'react'
 import { useCrdStore } from '@/store'
 import { Button, InputDate } from '@/components'
 import { useSetValue } from '../(hooks)'
 import { RequiredFieldsMessage, HeaderSection } from '.'
+import { toast } from 'react-toastify'
+import { handleScroll } from '../(helpers)'
+import { useRouter } from 'next/navigation'
 import {
 	SituacionActualDelPaciente,
 	ResultadoCribadoNutricional,
@@ -18,14 +22,73 @@ import {
 } from './(FormVisit1)'
 
 export const FormVisit1 = () => {
-	const { visit1 } = useCrdStore()
+	const { visit1, visit1Errors, setVisit1Errors } = useCrdStore()
 	const { setValue } = useSetValue('visit1')
+	const router = useRouter()
 
+	/**
+	 * Envía el formulario de VISITA 1
+	 * @param e
+	 * @returns
+	 */
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+
+		if (visit1.date === '' || visit1.date.length < 10) {
+			toast.error('La fecha es requerida')
+			setVisit1Errors({ date: true })
+			handleScroll('S7G2T9')
+			return false
+		}
+
+		if (visit1.id) {
+			console.log('PATCH')
+			try {
+				const resp = await fetch('/api/crd/215', {
+					method: 'patch',
+					body: JSON.stringify(visit1),
+					headers: { 'Content-Type': 'application/json' },
+				})
+
+				if (resp.ok) {
+					const resp_json = await resp.json()
+					router.refresh()
+				}
+			} catch (err) {
+				console.log(err)
+				toast.error('Error al enviar el formulario')
+				return false
+			}
+		} else {
+			console.log('POST')
+			try {
+				const resp = await fetch('/api/crd', {
+					method: 'post',
+					body: JSON.stringify(visit1),
+				})
+
+				if (resp.ok) {
+					const resp_json = await resp.json()
+					router.refresh()
+				}
+			} catch (err) {
+				console.log(err)
+				toast.error('Error al enviar el formulario')
+				return false
+			}
+		}
+	}
+
+	/**
+	 * Render:
+	 */
 	if (visit1)
 		return (
 			<>
-				<form>
-					<div className="text-lg font-bold">Visita Seguimiento 1</div>
+				<form onSubmit={handleSubmit} className="pl-1">
+					<div id="S7G2T9" className="text-lg font-bold">
+						Visita Seguimiento 1
+					</div>
 
 					<div className="space-y-10 mt-8">
 						<div className="space-y-2">
@@ -33,13 +96,23 @@ export const FormVisit1 = () => {
 								Fecha de la visita (día/mes/año) (≈3 meses de la visita basal)
 							</label>
 
-							<div className="max-w-40">
+							<div className="max-w-[150px]">
 								<InputDate
 									name="date"
 									value={visit1.date}
 									onChange={setValue}
+									className={visit1Errors.date ? 'input-error' : ''}
+									onKeyUp={() => {
+										setVisit1Errors({ date: false })
+									}}
 								/>
 							</div>
+
+							{visit1Errors.date && (
+								<div className="text-pink-500 text-sm leading-tight mt-1">
+									Complete la fecha de la visita
+								</div>
+							)}
 
 							<div className="text-gray-500 text-sm pt-8 space-y-4">
 								<p>
@@ -95,7 +168,7 @@ export const FormVisit1 = () => {
 							</div>
 						</div>
 
-						<div className="bg-white w-full py-4 flex items-center gap-x-8 bottom-0 fixed z-20 shadow-2xl">
+						<div className="bg-white w-full py-4 -ml-1 flex items-center gap-x-8 bottom-0 fixed z-20 shadow-2xl">
 							<Button className="btn-lg text-base bg-primary border-primary text-white">
 								Guardar
 							</Button>

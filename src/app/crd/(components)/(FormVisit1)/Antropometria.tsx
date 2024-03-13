@@ -12,7 +12,7 @@ export const Antropometria = () => {
 
 	return (
 		<>
-			<FormGroup id="L2M3N4" title="Antropometría" required>
+			<FormGroup id="U3V4W5" title="Antropometría" required>
 				<section className="space-y-3">
 					<div className="grid grid-cols-12 gap-x-4">
 						<div className="col-span-3 flex items-center">

@@ -1,5 +1,8 @@
 declare module 'crd' {
 	export interface Initial {
+		id?: number
+		patient_id: number | null
+		visit_type: string
 		date: string
 		inclusion_q1: 'y' | 'n' | null
 		inclusion_q2: 'y' | 'n' | null
@@ -121,6 +124,9 @@ declare module 'crd' {
 	}
 
 	export interface Visit1 {
+		id?: number
+		patient_id: number | null
+		visit_type: string
 		date: string
 		patient_current_situation:
 			| 'Alta'
