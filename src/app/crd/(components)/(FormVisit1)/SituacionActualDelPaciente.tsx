@@ -83,7 +83,7 @@ export const SituacionActualDelPaciente = () => {
 							<div className="max-w-[150px] space-y-2">
 								<label className="select-none leading-tight block">Fecha</label>
 								<InputDate
-									name="date"
+									name="patient_current_situation_date"
 									value={visit1.patient_current_situation_date}
 									onChange={setValue}
 								/>

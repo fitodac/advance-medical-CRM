@@ -72,6 +72,7 @@ export const FormInitial = () => {
 		return (
 			<>
 				<div className="text-lg font-bold">Visita inicial</div>
+
 				<div className="text-red-600 mt-10 space-x-2">
 					<i className="ri-error-warning-fill ri-xl" />
 					<span>
@@ -84,7 +85,14 @@ export const FormInitial = () => {
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="pl-1">
-				<div className="text-lg font-bold">Visita inicial</div>
+				<div className="text-lg font-bold">
+					Visita inicial
+					{initial.id && (
+						<span className="text-xs font-medium text-gray-300 pl-2">
+							#{initial.id}
+						</span>
+					)}
+				</div>
 
 				<div className="space-y-14 mt-8">
 					<Date />

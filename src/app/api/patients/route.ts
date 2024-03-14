@@ -31,7 +31,7 @@ export async function POST() {
 
 	try {
 		const resp = await fetch(`${serverApi.patients.post}`, {
-			method: 'post',
+			method: 'POST',
 			headers: {
 				Authorization: token,
 			},

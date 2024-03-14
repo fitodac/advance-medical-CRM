@@ -2,11 +2,27 @@ import type { NextRequest } from 'next/server'
 import { serverApi } from '@/config'
 import { useGetToken } from '@/hooks'
 
-
-export async function PATCH(req: NextRequest) {
+export async function PATCH(
+	req: NextRequest,
+	{ params }: { params: { id: string } }
+) {
 	const { token } = await useGetToken()
 	const body = await req.text()
 
-	console.log('body', body)
-	return Response.json({ action: 'CRD PATCH' })
+	try {
+		const resp = await fetch(`${serverApi.visits.index}/${params.id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: token,
+			},
+			body,
+		})
+
+		const resp_json = await resp.json()
+		return Response.json(resp_json)
+	} catch (err) {
+		console.log(err)
+		return Response.json(err)
+	}
 }

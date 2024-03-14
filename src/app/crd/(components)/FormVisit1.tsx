@@ -2,11 +2,10 @@
 import type { FormEvent } from 'react'
 import { useCrdStore } from '@/store'
 import { Button, InputDate } from '@/components'
-import { useSetValue } from '../(hooks)'
+import { useSetValue, useVisit1Submit } from '../(hooks)'
 import { RequiredFieldsMessage, HeaderSection } from '.'
 import { toast } from 'react-toastify'
 import { handleScroll } from '../(helpers)'
-import { useRouter } from 'next/navigation'
 import {
 	SituacionActualDelPaciente,
 	ResultadoCribadoNutricional,
@@ -24,7 +23,8 @@ import {
 export const FormVisit1 = () => {
 	const { visit1, visit1Errors, setVisit1Errors } = useCrdStore()
 	const { setValue } = useSetValue('visit1')
-	const router = useRouter()
+
+	const { submit } = useVisit1Submit()
 
 	/**
 	 * Envía el formulario de VISITA 1
@@ -41,41 +41,14 @@ export const FormVisit1 = () => {
 			return false
 		}
 
-		if (visit1.id) {
-			console.log('PATCH')
-			try {
-				const resp = await fetch('/api/crd/215', {
-					method: 'patch',
-					body: JSON.stringify(visit1),
-					headers: { 'Content-Type': 'application/json' },
-				})
+		const resp = await submit()
 
-				if (resp.ok) {
-					const resp_json = await resp.json()
-					router.refresh()
-				}
-			} catch (err) {
-				console.log(err)
-				toast.error('Error al enviar el formulario')
-				return false
-			}
+		if (!resp) {
+			toast.error('Error al enviar el formulario')
+		} else if (resp.success) {
+			toast.success(resp.message)
 		} else {
-			console.log('POST')
-			try {
-				const resp = await fetch('/api/crd', {
-					method: 'post',
-					body: JSON.stringify(visit1),
-				})
-
-				if (resp.ok) {
-					const resp_json = await resp.json()
-					router.refresh()
-				}
-			} catch (err) {
-				console.log(err)
-				toast.error('Error al enviar el formulario')
-				return false
-			}
+			toast.error(resp.message)
 		}
 	}
 
@@ -88,6 +61,11 @@ export const FormVisit1 = () => {
 				<form onSubmit={handleSubmit} className="pl-1">
 					<div id="S7G2T9" className="text-lg font-bold">
 						Visita Seguimiento 1
+						{visit1.id && (
+							<span className="text-xs font-medium text-gray-300 pl-2">
+								#{visit1.id}
+							</span>
+						)}
 					</div>
 
 					<div className="space-y-10 mt-8">

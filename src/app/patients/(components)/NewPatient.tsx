@@ -12,7 +12,7 @@ export const NewPatient = () => {
 		setLoading(true)
 
 		const resp = await fetch('/api/patients', {
-			method: 'post',
+			method: 'POST',
 		})
 
 		if (resp.ok) {

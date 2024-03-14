@@ -4,13 +4,13 @@ import { useGetToken } from '@/hooks'
 
 export async function GET(
 	req: NextRequest,
-	{ params }: { params: { patient_id: string } }
+	{ params }: { params: { id: string } }
 ) {
 	const { token } = await useGetToken()
-	const { patient_id } = params
+	const { id } = params
 
 	try {
-		const resp = await fetch(`${serverApi.visits.index}/${patient_id}`, {
+		const resp = await fetch(`${serverApi.visits.index}/${id}`, {
 			headers: {
 				Authorization: token,
 			},

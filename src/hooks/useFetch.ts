@@ -22,14 +22,15 @@ export const useFetchList = async (apiURL: string) => {
 	}
 }
 
-export const useGetCRD = async (patientId: string) => {
+export const useGetCRD = async (id: string) => {
 	const { sessionCookie } = await useGetToken()
 
 	try {
-		const resp = await fetch(`${api.visits}/${patientId}`, {
+		const resp = await fetch(`${api.visits}/patient/${id}`, {
 			headers: {
 				Cookie: sessionCookie,
 			},
+			next: { tags: ['useGetCRD'] },
 		})
 
 		if (resp.ok) {
