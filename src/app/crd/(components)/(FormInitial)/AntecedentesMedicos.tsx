@@ -115,16 +115,20 @@ export const AntecedentesMedicos = () => {
 							<input
 								type="checkbox"
 								name="mh__others"
-								value="y"
-								checked={initial.mh__others === 'y'}
+								value="Otros"
+								checked={initial.mh__others === 'Otros'}
 								onChange={handleChange}
 							/>
 							<span>Otros (especifique)</span>
 						</label>
 
 						<div className="flex-1 relative -top-1">
-							{initial.mh__others === 'y' && (
-								<input type="text" name="mh__others_description" onChange={handleInputChange} />
+							{initial.mh__others === 'Otros' && (
+								<input
+									type="text"
+									name="mh__others_description"
+									onChange={handleInputChange}
+								/>
 							)}
 						</div>
 					</div>

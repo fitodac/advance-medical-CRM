@@ -36,6 +36,8 @@ export const List = ({ content }: Props) => {
 	const { data: session, status } = useSession()
 	const { setPatient } = useCrdStore()
 
+	console.log('content', content)
+
 	const pager: Pager = {
 		current_page: content.current_page,
 		links: content.links.filter(

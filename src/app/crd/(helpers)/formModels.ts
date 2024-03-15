@@ -116,7 +116,7 @@ export const initialEmptyData: Initial = {
 export const visit1EmptyData: Visit1 = {
 	patient_id: null,
 	visit_type: 'first',
-	date: '12/04/1990',
+	date: '',
 	patient_current_situation: null,
 	patient_current_situation_date: '',
 	ns__result: null,

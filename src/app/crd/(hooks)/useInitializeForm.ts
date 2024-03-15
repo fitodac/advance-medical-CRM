@@ -161,8 +161,7 @@ export const useInitializeForm = () => {
 				id: dataVisit1.id,
 				patient_id: patient.id,
 				visit_type: dataVisit1.visit_type,
-				// date: dataVisit1.date ?? '',
-				date: '12/04/1990',
+				date: dataVisit1.date ?? '',
 				patient_current_situation: dataVisit1.patient_current_situation,
 				patient_current_situation_date:
 					dataVisit1.patient_current_situation_date ?? '',

@@ -2,8 +2,8 @@
 import type { FormEvent } from 'react'
 import { useCrdStore } from '@/store'
 import { Button } from '@/components'
-import { RequiredFieldsMessage } from '.'
-import { HeaderSection } from '.'
+import { useVisitInitialSubmit } from '../(hooks)'
+import { RequiredFieldsMessage, HeaderSection } from '.'
 import { toast } from 'react-toastify'
 import { handleScroll } from '../(helpers)'
 import {
@@ -39,6 +39,7 @@ import {
 
 export const FormInitial = () => {
 	const { initial, setInitialErrors } = useCrdStore()
+	const { submit } = useVisitInitialSubmit()
 
 	/**
 	 * Envía el formulario de la primer visita
@@ -62,7 +63,18 @@ export const FormInitial = () => {
 			return false
 		}
 
-		console.log('initial', initial)
+		// console.log('initial', initial)
+		const resp = await submit()
+
+		console.log('resp', resp)
+
+		if (!resp) {
+			toast.error('Error al enviar el formulario')
+		} else if (resp.success) {
+			toast.success(resp.message.message)
+		} else {
+			toast.error(resp.message)
+		}
 	}
 
 	/**

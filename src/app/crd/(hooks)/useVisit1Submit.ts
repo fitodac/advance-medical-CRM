@@ -1,9 +1,12 @@
-import { useCrdStore } from '@/store'
+import { useCrdStore, useStore } from '@/store'
 
 export const useVisit1Submit = () => {
 	const { visit1, setVisit1 } = useCrdStore()
+	const { setLoading } = useStore()
 
 	const submit = async () => {
+		setLoading(true)
+
 		if (visit1.id) {
 			/**
 			 * PATCH
@@ -24,11 +27,12 @@ export const useVisit1Submit = () => {
 					}
 
 					setVisit1(resp_json.data.visit)
-
+					setLoading(false)
 					return await resp_json
 				}
 			} catch (err) {
 				console.log(err)
+				setLoading(false)
 				return false
 			}
 		} else {
@@ -50,11 +54,12 @@ export const useVisit1Submit = () => {
 					}
 
 					setVisit1(resp_json.data.visit)
-
+					setLoading(false)
 					return await resp_json
 				}
 			} catch (err) {
 				console.log(err)
+				setLoading(false)
 				return false
 			}
 		}

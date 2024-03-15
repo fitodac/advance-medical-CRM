@@ -46,7 +46,7 @@ export const FormVisit1 = () => {
 		if (!resp) {
 			toast.error('Error al enviar el formulario')
 		} else if (resp.success) {
-			toast.success(resp.message)
+			toast.success(resp.message.message)
 		} else {
 			toast.error(resp.message)
 		}

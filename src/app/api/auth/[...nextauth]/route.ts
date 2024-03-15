@@ -18,9 +18,10 @@ export const authOptions: NextAuthOptions = {
 					type: 'text',
 					// value: 'dani@commonpeoplei.com', // Superadmin
 					// value: 'dani+admin@commonpeoplei.com', // Admin
-					value: 'house_md@local.com', // Doctor
+					value: 'marianovor@hotmail.com', // Doctor
 				},
-				password: { label: 'Password', type: 'password', value: 'cpi_1975' },
+				// password: { label: 'Password', type: 'password', value: 'cpi_1975' },
+				password: { label: 'Password', type: 'password', value: 'advance' },
 			},
 			async authorize(credentials) {
 				const res = await fetch('http://localhost/sanctum/csrf-cookie', {
