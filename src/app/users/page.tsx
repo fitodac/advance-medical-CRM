@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import { api } from '@/config'
-import { useFetchList, useHelpers } from '@/hooks'
-import { PageHeader, Breadcrumbs } from '@/components'
+import { useFetchList, useGetSession } from '@/hooks'
+import { PageHeader, Breadcrumbs, Pagination } from '@/components'
 import { ButtonLink, Table } from '@/components'
+import type { Pager } from 'types'
+import type { User } from 'next-auth'
+import { NewUser } from './(components)'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • Usuarios`,
@@ -16,7 +19,7 @@ const thead = [
 	{ title: 'Acciones', class: 'text-end' },
 ]
 
-const BadgeClassName = (role) => {
+const BadgeClassName = (role: string) => {
 	switch (role) {
 		case 'admin':
 			return 'badge ghost bg-sky-200 text-sky-500 border-primary text-primary'
@@ -37,12 +40,35 @@ const UsersPage = async ({
 		: api.users
 
 	const list = await useFetchList(url)
-	const { toCapitalize } = useHelpers()
+	const session = await useGetSession()
+	if (!session) return <></>
+
+	const user: User = session.user
+
+	const pager: Pager = {
+		current_page: list.data.current_page,
+		links: list.data.links.filter(
+			(e: { url: string; label: string; active: boolean }) => {
+				if (e.label !== 'Siguiente &raquo;' && e.label !== '&laquo; Anterior')
+					return e
+			}
+		),
+		prev_page_url: list.data.prev_page_url
+			? list.data.prev_page_url.split('?page=')[1]
+			: null,
+		next_page_url: list.data.next_page_url
+			? list.data.next_page_url.split('?page=')[1]
+			: null,
+		total: list.data.total,
+		last_page: list.data.last_page,
+	}
 
 	return (
 		<>
 			<PageHeader title="Usuarios">
-				{/* {user.role === 'doctor' && <NewPatient />} */}
+				{user.role && ['superadmin', 'admin'].includes(user.role) && (
+					<NewUser />
+				)}
 			</PageHeader>
 
 			<Breadcrumbs data={[{ title: 'Lista de usuarios', current: true }]} />
@@ -73,7 +99,7 @@ const UsersPage = async ({
 							<td>
 								<div className="flex gap-x-2 justify-end h-full">
 									<ButtonLink
-										href="#"
+										href={`/users/edit/${item.id}`}
 										className="btn btn-sm bg-primary border-primary text-white"
 									>
 										Editar
@@ -84,9 +110,10 @@ const UsersPage = async ({
 					))}
 				</Table>
 
-				<div className="h-20" />
+				<Pagination pager={pager} />
 			</section>
 
+			<div className="h-20" />
 			{/* <pre>{JSON.stringify(list, null, 2)}</pre> */}
 		</>
 	)

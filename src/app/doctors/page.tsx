@@ -1,8 +1,16 @@
 import type { Metadata } from 'next'
 import { api } from '@/config'
-import { useFetchList, useHelpers } from '@/hooks'
-import { PageHeader, Breadcrumbs } from '@/components'
-import { ButtonLink, Table } from '@/components'
+import { useFetchList, useGetSession, useHelpers } from '@/hooks'
+import {
+	PageHeader,
+	Breadcrumbs,
+	Table,
+	Pagination,
+	ButtonLink,
+} from '@/components'
+import type { Pager } from 'types'
+import type { User } from 'next-auth'
+import { NewDoctor } from './(components)'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • Doctores`,
@@ -27,13 +35,37 @@ const DoctorsPage = async ({
 		? `${api.doctors}?page=${searchParams.page}`
 		: api.doctors
 
-	const list = await useFetchList(url)
 	const { toCapitalize } = useHelpers()
+	const list = await useFetchList(url)
+	const session = await useGetSession()
+	if (!session) return <></>
+
+	const user: User = session.user
+
+	const pager: Pager = {
+		current_page: list.data.current_page,
+		links: list.data.links.filter(
+			(e: { url: string; label: string; active: boolean }) => {
+				if (e.label !== 'Siguiente &raquo;' && e.label !== '&laquo; Anterior')
+					return e
+			}
+		),
+		prev_page_url: list.data.prev_page_url
+			? list.data.prev_page_url.split('?page=')[1]
+			: null,
+		next_page_url: list.data.next_page_url
+			? list.data.next_page_url.split('?page=')[1]
+			: null,
+		total: list.data.total,
+		last_page: list.data.last_page,
+	}
 
 	return (
 		<>
 			<PageHeader title="Doctores">
-				{/* {user.role === 'doctor' && <NewPatient />} */}
+				{user.role && ['superadmin', 'admin'].includes(user.role) && (
+					<NewDoctor />
+				)}
 			</PageHeader>
 
 			<Breadcrumbs data={[{ title: 'Lista de doctores', current: true }]} />
@@ -61,14 +93,18 @@ const DoctorsPage = async ({
 								</div>
 							</td>
 
-							<td className="text-slate-500 text-sm capitalize">
-								{toCapitalize(item.center.name)}
+							<td className="text-slate-500 text-sm capitalize max-w-56">
+								<div className="overflow-ellipsis overflow-hidden">
+									<span className="whitespace-nowrap">
+										{toCapitalize(item.center.name)}
+									</span>
+								</div>
 							</td>
 
 							<td>
 								<div className="flex gap-x-2 justify-end h-full">
 									<ButtonLink
-										href="#"
+										href={`/doctors/edit/${item.id}`}
 										className="btn btn-sm bg-primary border-primary text-white"
 									>
 										Editar
@@ -79,8 +115,9 @@ const DoctorsPage = async ({
 					))}
 				</Table>
 
-				<div className="h-20" />
+				<Pagination pager={pager} />
 			</section>
+			<div className="h-20" />
 
 			{/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
 			{/* <pre>{JSON.stringify(list, null, 2)}</pre> */}

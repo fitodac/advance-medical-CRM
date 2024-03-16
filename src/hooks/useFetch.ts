@@ -3,7 +3,6 @@ import { api } from '@/config'
 
 export const useFetchList = async (apiURL: string) => {
 	const { sessionCookie } = await useGetToken()
-	// const { token } = await useGetToken()
 
 	try {
 		const resp = await fetch(apiURL, {
@@ -67,6 +66,26 @@ export const getProfile = async (id: number) => {
 
 	try {
 		const resp = await fetch(`${api.profile}/${id}`, {
+			headers: {
+				Cookie: sessionCookie,
+			},
+		})
+
+		if (resp.ok) {
+			const resp_json = await resp.json()
+			return resp_json
+		}
+	} catch (err) {
+		console.log('Error', err)
+		return null
+	}
+}
+
+export const useGetMedicalCenter = async (id: number) => {
+	const { sessionCookie } = await useGetToken()
+
+	try {
+		const resp = await fetch(`${api.centers}/${id}`, {
 			headers: {
 				Cookie: sessionCookie,
 			},

@@ -2,11 +2,9 @@
 import { useSession } from 'next-auth/react'
 import { useCrdStore } from '@/store'
 import { DeletePatient } from '.'
-import {
-	ButtonLink,
-	Table,
-} from '@/components'
-import type { Row, Pager } from 'type-patients'
+import { ButtonLink, Table } from '@/components'
+import type { Row } from 'type-patients'
+import type { Pager } from 'types'
 import Link from 'next/link'
 
 interface Props {

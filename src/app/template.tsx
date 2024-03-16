@@ -20,6 +20,12 @@ const MainTemplate = ({
 							<div className="row-span-2 px-6 py-5 overflow-x-auto xl:px-10">
 								{children}
 							</div>
+
+							<div className="text-slate-400 w-full px-6 py-8 flex justify-end">
+								<span className="text-xxs select-none">
+									&copy;2023 Advance experts
+								</span>
+							</div>
 						</div>
 					</div>
 				</section>

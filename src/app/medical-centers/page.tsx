@@ -1,8 +1,17 @@
 import type { Metadata } from 'next'
 import { api } from '@/config'
-import { useFetchList, useGetSession, useHelpers } from '@/hooks'
-import { PageHeader, Breadcrumbs } from '@/components'
-import { ButtonLink, Table } from '@/components'
+import { useFetchList, useGetSession } from '@/hooks'
+import {
+	PageHeader,
+	Breadcrumbs,
+	Table,
+	Pagination,
+	ButtonLink,
+} from '@/components'
+import type { Pager } from 'types'
+import type { User } from 'next-auth'
+import { NewCenter } from './(components)'
+import type { MedicalCenter } from './types'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • Centros médicos`,
@@ -27,12 +36,35 @@ const MedicalCentersPage = async ({
 		: api.centers
 
 	const list = await useFetchList(url)
-	const { toCapitalize } = useHelpers()
+	const session = await useGetSession()
+	if (!session) return <></>
+
+	const user: User = session.user
+
+	const pager: Pager = {
+		current_page: list.data.current_page,
+		links: list.data.links.filter(
+			(e: { url: string; label: string; active: boolean }) => {
+				if (e.label !== 'Siguiente &raquo;' && e.label !== '&laquo; Anterior')
+					return e
+			}
+		),
+		prev_page_url: list.data.prev_page_url
+			? list.data.prev_page_url.split('?page=')[1]
+			: null,
+		next_page_url: list.data.next_page_url
+			? list.data.next_page_url.split('?page=')[1]
+			: null,
+		total: list.data.total,
+		last_page: list.data.last_page,
+	}
 
 	return (
 		<>
 			<PageHeader title="Centros médicos">
-				{/* {user.role === 'doctor' && <NewPatient />} */}
+				{user.role && ['superadmin', 'admin'].includes(user.role) && (
+					<NewCenter />
+				)}
 			</PageHeader>
 
 			<Breadcrumbs
@@ -41,7 +73,7 @@ const MedicalCentersPage = async ({
 
 			<section className="w-full overflow-x-hidden pt-5">
 				<Table header={thead}>
-					{list.data.data.map((item: any) => (
+					{list.data.data.map((item: MedicalCenter) => (
 						<tr key={item.code}>
 							<td>
 								<span className="text-slate-300 text-xs">{item.id}</span>
@@ -63,7 +95,7 @@ const MedicalCentersPage = async ({
 							<td>
 								<div className="flex gap-x-2 justify-end h-full">
 									<ButtonLink
-										href="#"
+										href={`/medical-centers/edit/${item.id}`}
 										className="btn btn-sm bg-primary border-primary text-white"
 									>
 										Editar
@@ -74,9 +106,10 @@ const MedicalCentersPage = async ({
 					))}
 				</Table>
 
-				<div className="h-20" />
+				<Pagination pager={pager} />
 			</section>
 
+			<div className="h-20" />
 			<pre>{JSON.stringify(list.data.data, null, 2)}</pre>
 		</>
 	)

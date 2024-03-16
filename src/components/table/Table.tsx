@@ -14,7 +14,7 @@ export const Table = ({ header, children }: Props) => {
 							<tr>
 								{header.map((e) => (
 									<th key={e.title} className="text-slate-400 text-sm">
-										<div className={e.class}>{e.title}</div>
+										<div className={e?.class}>{e?.title}</div>
 									</th>
 								))}
 							</tr>

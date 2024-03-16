@@ -1,7 +1,10 @@
 import { create } from 'zustand'
-import type { CrdStore, Store, Patient } from 'store-types'
-import type { Initial, Visit1 } from 'crd'
+import type { CrdStore, Store } from './types'
+// import type { Initial, Visit1 } from 'crd'
 
+/**
+ * Visits store
+ */
 export const useCrdStore = create<CrdStore>()((set) => ({
 	patient: null,
 	initial: null,
@@ -15,20 +18,29 @@ export const useCrdStore = create<CrdStore>()((set) => ({
 		date: false,
 	},
 
-	setPatient: (state: Patient) => set({ patient: { ...state } }),
-	setInitial: (state: Initial) => set({ initial: { ...state } }),
-	setVisit1: (state: Visit1) => set({ visit1: { ...state } }),
-	setCurrentForm: (state: string) => set({ currentForm: state }),
-	setInitialErrors: (val: { [key: string]: boolean }) =>
-		set((state: CrdStore) => ({
-			initialErrors: { ...state.initialErrors, ...val },
-		})),
-	setVisit1Errors: (val: { [key: string]: boolean }) =>
+	setPatient: (state) => set({ patient: { ...state } }),
+	setInitial: (state) => {
+		if (state) set({ initial: { ...state } })
+	},
+	setVisit1: (state) => {
+		if (state) set({ visit1: { ...state } })
+	},
+	setCurrentForm: (state) => set({ currentForm: state }),
+	setInitialErrors: (val) => {
+		if (val)
+			set((state: CrdStore) => ({
+				initialErrors: { ...state.initialErrors, ...val },
+			}))
+	},
+	setVisit1Errors: (val) =>
 		set((state: CrdStore) => ({
 			visit1Errors: { ...state.visit1Errors, ...val },
 		})),
 }))
 
+/**
+ * Main store
+ */
 export const useStore = create<Store>()((set) => ({
 	loading: false,
 	setLoading: (state: boolean) => set({ loading: state }),

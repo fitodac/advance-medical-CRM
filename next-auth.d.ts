@@ -14,6 +14,8 @@ declare module 'next-auth' {
 		image?: string | null | undefined
 		role?: string
 		access_token?: string
+		create_at?: string
+		updated_at?: string
 	}
 
 	export interface Session {

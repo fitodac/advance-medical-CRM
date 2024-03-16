@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components'
 import { useStore } from '@/store'
 import { toast } from 'react-toastify'
