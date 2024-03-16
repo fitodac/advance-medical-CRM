@@ -7,7 +7,6 @@ export const useCrdStore = create<CrdStore>()((set) => ({
 	initial: null,
 	visit1: null,
 	currentForm: 'initial',
-	// currentForm: 'visit1',
 	initialErrors: {
 		date: false,
 		birth_date: false,

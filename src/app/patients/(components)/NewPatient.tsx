@@ -24,6 +24,8 @@ export const NewPatient = () => {
 				router.push(`/crd/${patient.data.id}`)
 				setLoading(false)
 			}, 500)
+		} else {
+			setLoading(false)
 		}
 	}
 

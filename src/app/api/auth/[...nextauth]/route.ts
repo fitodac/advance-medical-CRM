@@ -16,12 +16,12 @@ export const authOptions: NextAuthOptions = {
 				email: {
 					label: 'Email',
 					type: 'text',
-					// value: 'dani@commonpeoplei.com', // Superadmin
+					value: 'dani@commonpeoplei.com', // Superadmin
 					// value: 'dani+admin@commonpeoplei.com', // Admin
-					value: 'marianovor@hotmail.com', // Doctor
+					// value: 'marianovor@hotmail.com', // Doctor
 				},
-				// password: { label: 'Password', type: 'password', value: 'cpi_1975' },
-				password: { label: 'Password', type: 'password', value: 'advance' },
+				password: { label: 'Password', type: 'password', value: 'cpi_1975' },
+				// password: { label: 'Password', type: 'password', value: 'advance' },
 			},
 			async authorize(credentials) {
 				const res = await fetch('http://localhost/sanctum/csrf-cookie', {

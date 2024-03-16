@@ -27,6 +27,8 @@ export const DeletePatient = ({ id }: Props) => {
 				toast.success(patient.message.message)
 				setLoading(false)
 			}, 500)
+		} else {
+			setLoading(false)
 		}
 	}
 

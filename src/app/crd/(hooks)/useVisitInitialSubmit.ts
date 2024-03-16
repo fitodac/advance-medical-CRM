@@ -29,6 +29,8 @@ export const useVisitInitialSubmit = () => {
 					setInitial(resp_json.data.visit)
 					setLoading(false)
 					return await resp_json
+				} else {
+					setLoading(false)
 				}
 			} catch (err) {
 				console.log(err)
@@ -56,6 +58,8 @@ export const useVisitInitialSubmit = () => {
 					setInitial(resp_json.data.visit)
 					setLoading(false)
 					return await resp_json
+				} else {
+					setLoading(false)
 				}
 			} catch (err) {
 				console.log(err)

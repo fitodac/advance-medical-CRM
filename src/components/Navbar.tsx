@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import type { DefaultSession, User } from 'next-auth'
@@ -16,7 +15,7 @@ export const Navbar = (): JSX.Element => {
 	const role = user ? user.role : null
 
 	return (
-		<nav className="">
+		<nav className="bg-teal w-[260px] min-h-screen sm:w-[33vw] sm:fixed md:w-[25vw] lg:w-[25vw] xl:w-[16.5vw]">
 			<div className="px-6 pt-3 pb-10">
 				<Link href="/">
 					<img

@@ -10,7 +10,9 @@ interface ServerApi {
 		index?: string
 		get?: string
 		post?: string
+		patch?: string
 		delete?: string
+		password?: string
 	}
 }
 
@@ -20,6 +22,8 @@ export const api: Api = {
 	centers: `${apiPath}/centers`,
 	users: `${apiPath}/users`,
 	visits: `${apiPath}/crd`,
+	specialties: `${apiPath}/specialties`,
+	profile: `${apiPath}/profile`,
 }
 
 export const serverApi: ServerApi = {
@@ -30,5 +34,12 @@ export const serverApi: ServerApi = {
 	},
 	visits: {
 		index: `${laravelApiPath}/visit`,
+	},
+	specialties: {
+		index: `${laravelApiPath}/specialties`,
+	},
+	profile: {
+		index: `${laravelApiPath}/profile`,
+		password: `${laravelApiPath}/profile/password-update`,
 	},
 }

@@ -63,17 +63,14 @@ export const FormInitial = () => {
 			return false
 		}
 
-		// console.log('initial', initial)
 		const resp = await submit()
-
-		console.log('resp', resp)
 
 		if (!resp) {
 			toast.error('Error al enviar el formulario')
 		} else if (resp.success) {
 			toast.success(resp.message.message)
 		} else {
-			toast.error(resp.message)
+			toast.error(resp.error.message)
 		}
 	}
 

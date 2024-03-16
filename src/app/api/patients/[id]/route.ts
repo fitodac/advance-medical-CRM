@@ -21,7 +21,4 @@ export async function DELETE(
 	} catch (err) {
 		return Response.json(err)
 	}
-
-	console.log('REQ', params.id)
-	return Response.json({ objective: 'Eliminar un paciente' })
 }

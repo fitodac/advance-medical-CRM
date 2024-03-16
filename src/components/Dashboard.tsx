@@ -1,16 +1,68 @@
 'use client'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
+import type { User } from 'next-auth'
 
-const boxClassName = `bg-white border boder-slate-100 px-7 py-4 space-y-1 flex flex-col select-none transition-all rounded-md 
+const boxClassName = `bg-white border boder-slate-100 h-full px-7 py-4 space-y-1 flex flex-col select-none transition-all rounded-md 
 											hover:bg-teal hover:border-teal hover:text-white`
+
+const Profile = (): JSX.Element => {
+	const { data: session, status } = useSession()
+	const user: User = session ? session.user : null
+
+	return (
+		<div>
+			<h1>Profile</h1>
+
+			{session ? (
+				<>
+					{session.user && (
+						<div>Signed in as {`${user.firstname} ${user.lastname}`}</div>
+					)}
+					<button
+						onClick={() => signOut()}
+						className="btn bg-primary text-white"
+					>
+						Sign out
+					</button>
+
+					<pre>{JSON.stringify(session, null, 2)}</pre>
+				</>
+			) : (
+				<>
+					<div>Not signed in</div>
+					<button
+						onClick={() => signIn()}
+						className="btn bg-primary text-white"
+					>
+						Sign in
+					</button>
+				</>
+			)}
+
+			<pre>{JSON.stringify(session)}</pre>
+			<pre>{JSON.stringify(status)}</pre>
+
+			<button onClick={() => signOut()} className="btn bg-primary text-white">
+				Sign out
+			</button>
+		</div>
+	)
+}
+
+// $2y$10$OJPrjtoBDROuoJNINZ4Dfu0g2l3MWwI59tPQe2KhcYhnOMsvq5xJu
 
 export const Dashboard = (): JSX.Element => {
 	const { data: session, status } = useSession()
 
 	const user = session ? session.user : null
 
-	if (!user) return <></>
+	if (!user)
+		return (
+			<>
+				<Profile />
+			</>
+		)
 
 	return (
 		<>

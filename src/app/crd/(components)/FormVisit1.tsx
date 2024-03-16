@@ -48,7 +48,7 @@ export const FormVisit1 = () => {
 		} else if (resp.success) {
 			toast.success(resp.message.message)
 		} else {
-			toast.error(resp.message)
+			toast.error(resp.error.message)
 		}
 	}
 
