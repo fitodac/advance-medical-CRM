@@ -35,6 +35,15 @@ export const serverApi: ServerApi = {
 	visits: {
 		index: `${laravelApiPath}/visit`,
 	},
+	doctors: {
+		index: `${laravelApiPath}/doctors`,
+	},
+	centers: {
+		index: `${laravelApiPath}/centers`,
+	},
+	users: {
+		index: `${laravelApiPath}/users`,
+	},
 	specialties: {
 		index: `${laravelApiPath}/specialties`,
 	},

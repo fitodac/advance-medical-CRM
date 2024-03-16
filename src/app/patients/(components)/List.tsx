@@ -3,9 +3,6 @@ import { useSession } from 'next-auth/react'
 import { useCrdStore } from '@/store'
 import { DeletePatient } from '.'
 import {
-	PageHeader,
-	Breadcrumbs,
-	Button,
 	ButtonLink,
 	Table,
 } from '@/components'
@@ -35,8 +32,6 @@ const toCapitalize = (text: string) => {
 export const List = ({ content }: Props) => {
 	const { data: session, status } = useSession()
 	const { setPatient } = useCrdStore()
-
-	console.log('content', content)
 
 	const pager: Pager = {
 		current_page: content.current_page,

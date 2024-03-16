@@ -93,9 +93,11 @@ export const Navbar = (): JSX.Element => {
 				{(user?.role === 'admin' || user?.role === 'superadmin') && (
 					<li>
 						<Link
-							href="/downloads"
+							href="/export-excel"
 							className={
-								'/downloads' === pathname ? itemActiveClassName : itemClassName
+								'/export-excel' === pathname
+									? itemActiveClassName
+									: itemClassName
 							}
 						>
 							Exportar datos

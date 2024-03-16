@@ -19,7 +19,6 @@ const PatientsPage = async ({
 		? `${api.patients}?page=${searchParams.page}`
 		: api.patients
 	const list = await useFetchList(url)
-
 	const session = await useGetSession()
 
 	if (!session) return <></>
@@ -28,7 +27,7 @@ const PatientsPage = async ({
 
 	return (
 		<>
-			<PageHeader title="Listado de pacientes">
+			<PageHeader title="Pacientes">
 				{user.role === 'doctor' && <NewPatient />}
 			</PageHeader>
 

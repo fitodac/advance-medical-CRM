@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 type Props = {
-	children: React.ReactNode
-	href: string
-	className: string
+	children?: React.ReactNode
+	href?: string
+	className?: string
 }
 
 export const ButtonLink = ({
