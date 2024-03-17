@@ -1,2 +1,2 @@
-export * from './NewDoctor'
 export * from './Form'
+export * from './DoctorForm'

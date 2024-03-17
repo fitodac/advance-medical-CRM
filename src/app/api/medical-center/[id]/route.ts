@@ -2,17 +2,14 @@ import type { NextRequest } from 'next/server'
 import { serverApi } from '@/config'
 import { useGetToken } from '@/hooks'
 
-
-export async function GET(req: NextRequest) {
-	const searchParams = req.nextUrl.searchParams
-	const page = searchParams.get('page')
-	let url = serverApi.doctors.index
-	if (page) url += `?page=${page}`
+export async function GET(
+	req: NextRequest,
+	{ params }: { params: { id: string } }
+) {
+	const { token } = await useGetToken()
 
 	try {
-		const { token } = await useGetToken()
-
-		const resp = await fetch(`${url}`, {
+		const resp = await fetch(`${serverApi.centers.index}/${params.id}`, {
 			headers: {
 				Authorization: token,
 			},
@@ -25,14 +22,16 @@ export async function GET(req: NextRequest) {
 	}
 }
 
-
-export async function POST(req: NextRequest) {
+export async function PATCH(
+	req: NextRequest,
+	{ params }: { params: { id: string } }
+) {
 	const { token } = await useGetToken()
 	const body = await req.text()
 
 	try {
-		const resp = await fetch(`${serverApi.doctors.index}`, {
-			method: 'POST',
+		const resp = await fetch(`${serverApi.centers.index}/${params.id}`, {
+			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: token,
@@ -41,7 +40,6 @@ export async function POST(req: NextRequest) {
 		})
 
 		const resp_json = await resp.json()
-		console.log('resp_json', resp_json)
 		return Response.json(resp_json)
 	} catch (err) {
 		return Response.json(err)

@@ -19,7 +19,7 @@ interface ServerApi {
 export const api: Api = {
 	doctors: `${apiPath}/doctors`,
 	patients: `${apiPath}/patients`,
-	centers: `${apiPath}/medical-centers`,
+	centers: `${apiPath}/medical-center`,
 	users: `${apiPath}/users`,
 	visits: `${apiPath}/crd`,
 	specialties: `${apiPath}/specialties`,

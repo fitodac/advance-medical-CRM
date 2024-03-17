@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
 	try {
 		const { token } = await useGetToken()
 
-		const resp = await fetch(url, {
+		const resp = await fetch(`${url}`, {
 			headers: {
 				Authorization: token,
 			},

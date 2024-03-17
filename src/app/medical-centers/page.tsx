@@ -10,8 +10,7 @@ import {
 } from '@/components'
 import type { Pager } from 'types'
 import type { User } from 'next-auth'
-import { NewCenter } from './(components)'
-import type { MedicalCenter } from './types'
+import type { MedicalCenter } from './type'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • Centros médicos`,
@@ -63,7 +62,12 @@ const MedicalCentersPage = async ({
 		<>
 			<PageHeader title="Centros médicos">
 				{user.role && ['superadmin', 'admin'].includes(user.role) && (
-					<NewCenter />
+					<ButtonLink
+						href="/medical-centers/new"
+						className="bg-teal border-teal text-white"
+					>
+						Nuevo centro médico
+					</ButtonLink>
 				)}
 			</PageHeader>
 

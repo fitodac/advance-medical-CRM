@@ -30,25 +30,25 @@ export const Form = ({ doctor }: Props) => {
 			<section className="max-w-3xl pt-5">
 				<form onSubmit={submit}>
 					<div className="grid grid-cols-2 gap-x-5 gap-y-4">
-						<div className="space-y-2">
+						<div className="space-y-1">
 							<label className="select-none leading-tight block">Nombre</label>
 							<input type="text" name="firstname" value={state.firstname}
 								onChange={handleChange} />
 						</div>
 
-						<div className="space-y-2">
+						<div className="space-y-1">
 							<label className="select-none leading-tight block">
 								Apellido
 							</label>
 							<input type="text" name="lastname" />
 						</div>
 
-						<div className="space-y-2">
+						<div className="space-y-1">
 							<label className="select-none leading-tight block">Email</label>
 							<input type="text" name="email" />
 						</div>
 
-						<div className="space-y-2">
+						<div className="space-y-1">
 							<label className="select-none leading-tight block">
 								Especialidad
 							</label>
@@ -57,7 +57,7 @@ export const Form = ({ doctor }: Props) => {
 							</select>
 						</div>
 
-						<div className="space-y-2">
+						<div className="space-y-1">
 							<label className="select-none leading-tight block">
 								Centro médico
 							</label>

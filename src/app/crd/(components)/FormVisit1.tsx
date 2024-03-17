@@ -34,11 +34,13 @@ export const FormVisit1 = () => {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		if (visit1.date === '' || visit1.date.length < 10) {
-			toast.error('La fecha es requerida')
-			setVisit1Errors({ date: true })
-			handleScroll('S7G2T9')
-			return false
+		if (visit1) {
+			if (visit1.date === '' || visit1.date.length < 10) {
+				toast.error('La fecha es requerida')
+				setVisit1Errors({ date: true })
+				handleScroll('S7G2T9')
+				return false
+			}
 		}
 
 		const resp = await submit()

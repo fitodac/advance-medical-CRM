@@ -6,3 +6,9 @@ export interface MedicalCenter {
 	updated_at: string
 	date: string
 }
+
+interface MedicalCenterForm {
+	id: number | null
+	name: string
+	code: string
+}
