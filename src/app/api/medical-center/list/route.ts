@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
 	try {
 		const { token } = await useGetToken()
 
-		const resp = await fetch(`${serverApi.specialties.index}`, {
+		const resp = await fetch(`${serverApi.centers.list}`, {
 			headers: {
 				Authorization: token,
 			},

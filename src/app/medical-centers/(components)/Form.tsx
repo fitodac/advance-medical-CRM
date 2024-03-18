@@ -3,9 +3,10 @@ import { useState, ChangeEvent, FormEvent } from 'react'
 import { ButtonLink, Button } from '@/components'
 import { useHelpers } from '@/hooks'
 import { useForm } from '../(hooks)'
-import type { MedicalCenter, MedicalCenterForm } from '../type'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+
+import type { MedicalCenter, MedicalCenterForm } from '../type'
 
 interface Props {
 	center?: MedicalCenter
@@ -44,7 +45,6 @@ export const Form = ({ center }: Props) => {
 
 		const resp = await saveMedicalCenter(state)
 
-		console.log('RESP', resp)
 		if (!resp) {
 			toast.error('Error al enviar el formulario')
 		} else if (resp.success) {

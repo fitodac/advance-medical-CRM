@@ -30,6 +30,7 @@ form .input-search > input {
 	line-height: 1.1 !important;
 }
 
-input.input-error {
-	@apply bg-pink-50 border-pink-500 border-2 !important;
+input.input-error,
+select.input-error {
+	@apply bg-pink-50 border-pink-500 text-pink-600 border-2 !important;
 }

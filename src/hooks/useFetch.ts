@@ -41,7 +41,7 @@ export const useGetCRD = async (id: string) => {
 	}
 }
 
-export const getSpecialties = async () => {
+export const useGetSpecialties = async () => {
 	const { sessionCookie } = await useGetToken()
 
 	try {
@@ -61,7 +61,7 @@ export const getSpecialties = async () => {
 	}
 }
 
-export const getProfile = async (id: number) => {
+export const useGetProfile = async (id: number) => {
 	const { sessionCookie } = await useGetToken()
 
 	try {
@@ -86,6 +86,86 @@ export const useGetMedicalCenter = async (id: number) => {
 
 	try {
 		const resp = await fetch(`${api.centers}/${id}`, {
+			headers: {
+				Cookie: sessionCookie,
+			},
+		})
+
+		if (resp.ok) {
+			const resp_json = await resp.json()
+			return resp_json
+		}
+	} catch (err) {
+		console.log('Error', err)
+		return null
+	}
+}
+
+export const useGetUser = async (id: number) => {
+	const { sessionCookie } = await useGetToken()
+
+	try {
+		const resp = await fetch(`${api.users}/${id}`, {
+			headers: {
+				Cookie: sessionCookie,
+			},
+		})
+
+		if (resp.ok) {
+			const resp_json = await resp.json()
+			return resp_json
+		}
+	} catch (err) {
+		console.log('Error', err)
+		return null
+	}
+}
+
+export const useGetDoctor = async (id: number) => {
+	const { sessionCookie } = await useGetToken()
+
+	try {
+		const resp = await fetch(`${api.doctors}/${id}`, {
+			headers: {
+				Cookie: sessionCookie,
+			},
+		})
+
+		if (resp.ok) {
+			const resp_json = await resp.json()
+			return resp_json
+		}
+	} catch (err) {
+		console.log('Error', err)
+		return null
+	}
+}
+
+export const useGetSpecialtiesList = async () => {
+	const { sessionCookie } = await useGetToken()
+
+	try {
+		const resp = await fetch(`${api.specialties}/list`, {
+			headers: {
+				Cookie: sessionCookie,
+			},
+		})
+
+		if (resp.ok) {
+			const resp_json = await resp.json()
+			return resp_json
+		}
+	} catch (err) {
+		console.log('Error', err)
+		return null
+	}
+}
+
+export const useGetMedicalCentersList = async () => {
+	const { sessionCookie } = await useGetToken()
+
+	try {
+		const resp = await fetch(`${api.centers}/list`, {
 			headers: {
 				Cookie: sessionCookie,
 			},

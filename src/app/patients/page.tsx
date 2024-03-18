@@ -6,7 +6,13 @@ import {
 	NewPatient,
 	EditCrd,
 } from './(components)'
-import { PageHeader, Breadcrumbs, Table, Pagination } from '@/components'
+import {
+	PageHeader,
+	Breadcrumbs,
+	Table,
+	Pagination,
+	FetchError,
+} from '@/components'
 import type { Row } from 'type-patients'
 import type { Pager } from 'types'
 import type { User } from 'next-auth'
@@ -38,7 +44,21 @@ const PatientsPage = async ({
 		: api.patients
 	const list = await useFetchList(url)
 	const session = await useGetSession()
-	if (!session) return <></>
+
+	if (!session) {
+		return FetchError({
+			validation: session ? false : true,
+			message: 'El servidor no puede devolver los datos de sesión',
+		})
+	}
+
+	if (!list) {
+		return FetchError({
+			validation: list,
+			message: 'El servidor no puede devolver el listado de pacientes',
+		})
+	}
+
 	const { toCapitalize } = useHelpers()
 
 	const user: User = session.user

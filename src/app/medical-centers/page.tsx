@@ -7,6 +7,7 @@ import {
 	Table,
 	Pagination,
 	ButtonLink,
+	FetchError,
 } from '@/components'
 import type { Pager } from 'types'
 import type { User } from 'next-auth'
@@ -36,7 +37,20 @@ const MedicalCentersPage = async ({
 
 	const list = await useFetchList(url)
 	const session = await useGetSession()
-	if (!session) return <></>
+
+	if (!session) {
+		return FetchError({
+			validation: session ? false : true,
+			message: 'El servidor no puede devolver los datos de sesión',
+		})
+	}
+
+	if (!list) {
+		return FetchError({
+			validation: list,
+			message: 'El servidor no puede devolver el listado de centros médicos',
+		})
+	}
 
 	const user: User = session.user
 

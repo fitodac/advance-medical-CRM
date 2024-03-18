@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { PageHeader, Breadcrumbs } from '@/components'
+import { PageHeader, Breadcrumbs, FetchError } from '@/components'
 import { Form } from '../../(components)'
 import { useGetMedicalCenter } from '@/hooks'
 
@@ -13,6 +13,13 @@ const EditMedicalCenterPage = async ({
 	params: { id: number }
 }) => {
 	const center = await useGetMedicalCenter(params.id)
+
+	if (!center.success) {
+		return FetchError({
+			validation: center.success,
+			message: 'El servidor no puede devolver los datos de este centro médico',
+		})
+	}
 
 	return (
 		<>

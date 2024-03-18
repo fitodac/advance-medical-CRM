@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
 import { api } from '@/config'
 import { useFetchList, useGetSession } from '@/hooks'
-import { PageHeader, Breadcrumbs, Pagination } from '@/components'
+import { PageHeader, Breadcrumbs, Pagination, FetchError } from '@/components'
 import { ButtonLink, Table } from '@/components'
 import type { Pager } from 'types'
 import type { User } from 'next-auth'
-import { NewUser } from './(components)'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • Usuarios`,
@@ -41,7 +40,20 @@ const UsersPage = async ({
 
 	const list = await useFetchList(url)
 	const session = await useGetSession()
-	if (!session) return <></>
+	
+	if (!session) {
+		return FetchError({
+			validation: session ? false : true,
+			message: 'El servidor no puede devolver los datos de sesión',
+		})
+	}
+
+	if (!list) {
+		return FetchError({
+			validation: list,
+			message: 'El servidor no puede devolver el listado de usuarios',
+		})
+	}
 
 	const user: User = session.user
 
@@ -67,7 +79,12 @@ const UsersPage = async ({
 		<>
 			<PageHeader title="Usuarios">
 				{user.role && ['superadmin', 'admin'].includes(user.role) && (
-					<NewUser />
+					<ButtonLink
+						href="/users/new"
+						className="bg-teal border-teal text-white"
+					>
+						Nuevo usuario
+					</ButtonLink>
 				)}
 			</PageHeader>
 

@@ -36,6 +36,30 @@ export interface CrdStore {
 	setVisit1Errors: (val: { [key: string]: boolean }) => void
 }
 
+export interface UserForm {
+	id: number | null
+	firstname: string
+	lastname: string
+	email: string
+	role: string
+	center_id?: number | null
+	specialty_id?: number | null
+}
+
+export interface UserErrors {
+	firstname: boolean | string
+	lastname: boolean | string
+	email: boolean | string
+	role: boolean | string
+}
+
+export interface UserStore {
+	form: UserForm
+	errors: UserErrors
+	setForm: (state: UserForm) => void
+	setErrors: (state: UserErrors) => void
+}
+
 export interface Store {
 	loading: boolean
 	setLoading: (state: boolean) => void

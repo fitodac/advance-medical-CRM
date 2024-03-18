@@ -13,6 +13,7 @@ interface ServerApi {
 		patch?: string
 		delete?: string
 		password?: string
+		list?: string
 	}
 }
 
@@ -40,12 +41,14 @@ export const serverApi: ServerApi = {
 	},
 	centers: {
 		index: `${laravelApiPath}/centers`,
+		list: `${laravelApiPath}/centers-list`,
 	},
 	users: {
 		index: `${laravelApiPath}/users`,
 	},
 	specialties: {
 		index: `${laravelApiPath}/specialties`,
+		list: `${laravelApiPath}/specialties-list`,
 	},
 	profile: {
 		index: `${laravelApiPath}/profile`,

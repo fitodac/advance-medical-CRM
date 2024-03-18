@@ -7,4 +7,15 @@ declare module 'types' {
 		links: { url: string | null; label: string; active: boolean }[]
 		total: number
 	}
+
+	interface SpecialtiesList {
+		id: number
+		name: string
+	}
+
+	interface MedicalCentersList {
+		id: number
+		name: string
+		code: string
+	}
 }

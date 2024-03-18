@@ -39,7 +39,6 @@ export async function POST(req: NextRequest) {
 		})
 
 		const resp_json = await resp.json()
-		console.log('resp_json', resp_json)
 		return Response.json(resp_json)
 	} catch (err) {
 		return Response.json(err)

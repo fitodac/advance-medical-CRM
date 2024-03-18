@@ -2,11 +2,14 @@ import type { NextRequest } from 'next/server'
 import { serverApi } from '@/config'
 import { useGetToken } from '@/hooks'
 
-export async function GET(req: NextRequest) {
-	try {
-		const { token } = await useGetToken()
+export async function GET(
+	req: NextRequest,
+	{ params }: { params: { id: string } }
+) {
+	const { token } = await useGetToken()
 
-		const resp = await fetch(`${serverApi.specialties.index}`, {
+	try {
+		const resp = await fetch(`${serverApi.doctors.index}/${params.id}`, {
 			headers: {
 				Authorization: token,
 			},

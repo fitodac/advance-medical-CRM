@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { CrdStore, Store } from './types'
+import type { CrdStore, UserStore, Store } from './type'
 // import type { Initial, Visit1 } from 'crd'
 
 /**
@@ -36,6 +36,30 @@ export const useCrdStore = create<CrdStore>()((set) => ({
 		set((state: CrdStore) => ({
 			visit1Errors: { ...state.visit1Errors, ...val },
 		})),
+}))
+
+/**
+ * User store
+ */
+
+export const useUserStore = create<UserStore>()((set) => ({
+	form: {
+		id: null,
+		firstname: '',
+		lastname: '',
+		email: '',
+		role: '',
+		center_id: null,
+		specialty_id: null,
+	},
+	errors: {
+		firstname: false,
+		lastname: false,
+		email: false,
+		role: false,
+	},
+	setForm: (state) => set({ form: state }),
+	setErrors: (state) => set({ errors: state }),
 }))
 
 /**
