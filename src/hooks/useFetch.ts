@@ -41,26 +41,6 @@ export const useGetCRD = async (id: string) => {
 	}
 }
 
-export const useGetSpecialties = async () => {
-	const { sessionCookie } = await useGetToken()
-
-	try {
-		const resp = await fetch(api.specialties, {
-			headers: {
-				Cookie: sessionCookie,
-			},
-		})
-
-		if (resp.ok) {
-			const resp_json = await resp.json()
-			return resp_json
-		}
-	} catch (err) {
-		console.log('Error', err)
-		return null
-	}
-}
-
 export const useGetProfile = async (id: number) => {
 	const { sessionCookie } = await useGetToken()
 

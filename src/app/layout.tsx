@@ -9,6 +9,7 @@ import '@/ui/css/ui.css'
 
 import { useStore } from '@/store'
 import { ToastContainer } from 'react-toastify'
+import { Slide } from 'react-toastify'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -39,6 +40,8 @@ export default function RootLayout({
 				<ToastContainer
 					position="bottom-left"
 					hideProgressBar={true}
+					transition={Slide}
+					progressStyle={{}}
 					autoClose={3000}
 				/>
 			</body>

@@ -2,13 +2,12 @@
 import { useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 
 export const Header = (): JSX.Element => {
 	const { data: session } = useSession()
 	const user = session ? session.user : null
 	const [dd, setDd] = useState<number>(0)
-	const router = useRouter()
 
 	return (
 		<>
@@ -33,7 +32,7 @@ export const Header = (): JSX.Element => {
 									checked={dd ? true : false}
 								/>
 
-								{user && (
+								{user && user.firstname && (
 									<>
 										<span className="border-none bg-transparent text-white font-normal flex gap-x-1.5 items-center btn btn-sm whitespace-nowrap ellipsis overflow-hidden">
 											<div className="bg-teal text-white tracking-tight w-8 h-8 flex items-center rounded-full">
@@ -60,12 +59,7 @@ export const Header = (): JSX.Element => {
 												</li>
 												<li>
 													<button
-														onClick={() => {
-															signOut({ redirect: false }).then(() => {
-																console.log('signed out')
-																// 	router.push('/profile')
-															})
-														}}
+														onClick={() => signOut()}
 														className="block select-none transition-all hover:text-primary"
 													>
 														Cerrar sesión

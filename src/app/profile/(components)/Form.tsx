@@ -46,10 +46,12 @@ export const Form = ({ specialties, profile }: Props) => {
 
 		const resp = await saveProfile({ id: profile.id, form: state })
 
+		console.log('resp', resp)
+
 		if (!resp) {
 			toast.error('Error al enviar el formulario')
 		} else if (resp.success) {
-			toast.success(resp.message.message)
+			toast.success(resp.message)
 		} else {
 			toast.error(resp.error.message)
 		}
@@ -63,7 +65,7 @@ export const Form = ({ specialties, profile }: Props) => {
 		if (!resp) {
 			toast.error('Error al guardar la contraseña')
 		} else if (resp.success) {
-			toast.success(resp.message.message)
+			toast.success(resp.message)
 			setPwd({ password: '', new_password: '' })
 		} else {
 			toast.error(resp.error.message)
@@ -244,6 +246,8 @@ export const Form = ({ specialties, profile }: Props) => {
 			</div>
 
 			<div className="h-20" />
+
+			{/* <pre>{JSON.stringify(specialties, null, 2)}</pre> */}
 		</>
 	)
 }

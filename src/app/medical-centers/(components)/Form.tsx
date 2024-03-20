@@ -48,7 +48,7 @@ export const Form = ({ center }: Props) => {
 		if (!resp) {
 			toast.error('Error al enviar el formulario')
 		} else if (resp.success) {
-			toast.success(resp.message.message)
+			toast.success(resp.message)
 			router.push(`/medical-centers`)
 			router.refresh()
 		} else if (resp.error) {

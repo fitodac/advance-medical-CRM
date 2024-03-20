@@ -1,6 +1,6 @@
 import { Form } from './(components)'
 import type { Metadata } from 'next'
-import { useGetSession, useGetSpecialties, useGetProfile } from '@/hooks'
+import { useGetSession, useGetSpecialtiesList, useGetProfile } from '@/hooks'
 import { PageHeader, Breadcrumbs, FetchError } from '@/components'
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const ProfilePage = async () => {
 	const session = await useGetSession()
-	const specialties = await useGetSpecialties()
+	const specialties = await useGetSpecialtiesList()
 
 	if (!session) {
 		return FetchError({
