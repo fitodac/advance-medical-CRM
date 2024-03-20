@@ -184,9 +184,9 @@ const PatientsPage = async ({
 									{'doctor' === session?.user.role && (
 										<>
 											<EditCrd patient={item} />
-											<DeletePatient id={item.id} />
 										</>
 									)}
+									<DeletePatient id={item.id} />
 								</div>
 							</td>
 						</tr>

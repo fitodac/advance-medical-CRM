@@ -12,7 +12,7 @@ export const Header = (): JSX.Element => {
 
 	return (
 		<>
-			<header className="bg-primary border-b border-primary w-full px-5 py-2 flex justify-between items-center inset-x-0 top-0 fixed">
+			<header className="bg-primary border-b border-primary w-full px-5 py-2 flex justify-between items-center inset-x-0 top-0 fixed z-20">
 				<div className="flex gap-x-6 items-center">
 					<span className="sm:hidden">
 						<button className="btn btn-icon bg-transparent border-transparent text-slate-400">

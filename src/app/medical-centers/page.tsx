@@ -12,6 +12,7 @@ import {
 import type { Pager } from 'types'
 import type { User } from 'next-auth'
 import type { MedicalCenter } from './type'
+import { DeleteCenter } from './(components)'
 
 export const metadata: Metadata = {
 	title: `${process.env.APP_NAME} • Centros médicos`,
@@ -44,6 +45,7 @@ const MedicalCentersPage = async ({
 			message: 'El servidor no puede devolver los datos de sesión',
 		})
 	}
+
 
 	if (!list) {
 		return FetchError({
@@ -118,6 +120,8 @@ const MedicalCentersPage = async ({
 									>
 										Editar
 									</ButtonLink>
+
+									<DeleteCenter id={item.id} />
 								</div>
 							</td>
 						</tr>

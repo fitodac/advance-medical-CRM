@@ -10,7 +10,7 @@ export async function DELETE(
 
 	try {
 		const resp = await fetch(`${serverApi.patients.delete}/${params.id}`, {
-			method: 'delete',
+			method: 'DELETE',
 			headers: {
 				Authorization: token,
 			},

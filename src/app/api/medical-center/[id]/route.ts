@@ -45,3 +45,25 @@ export async function PATCH(
 		return Response.json(err)
 	}
 }
+
+
+export async function DELETE(
+	req: NextRequest,
+	{ params }: { params: { id: string } }
+) {
+	const { token } = await useGetToken()
+
+	try {
+		const resp = await fetch(`${serverApi.centers.delete}/${params.id}`, {
+			method: 'DELETE',
+			headers: {
+				Authorization: token,
+			},
+		})
+
+		const resp_json = await resp.json()
+		return Response.json(resp_json)
+	} catch (err) {
+		return Response.json(err)
+	}
+}
