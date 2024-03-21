@@ -1,68 +1,15 @@
 'use client'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import type { User } from 'next-auth'
 
 const boxClassName = `bg-white border boder-slate-100 h-full px-7 py-4 space-y-1 flex flex-col select-none transition-all rounded-md 
 											hover:bg-teal hover:border-teal hover:text-white`
 
-const Profile = (): JSX.Element => {
-	const { data: session, status } = useSession()
-	const user: User = session ? session.user : null
-
-	return (
-		<div>
-			<h1>Profile</h1>
-
-			{session ? (
-				<>
-					{session.user && (
-						<div>Signed in as {`${user.firstname} ${user.lastname}`}</div>
-					)}
-					<button
-						onClick={() => signOut()}
-						className="btn bg-primary text-white"
-					>
-						Sign out
-					</button>
-
-					<pre>{JSON.stringify(session, null, 2)}</pre>
-				</>
-			) : (
-				<>
-					<div>Not signed in</div>
-					<button
-						onClick={() => signIn()}
-						className="btn bg-primary text-white"
-					>
-						Sign in
-					</button>
-				</>
-			)}
-
-			<pre>{JSON.stringify(session)}</pre>
-			<pre>{JSON.stringify(status)}</pre>
-
-			<button onClick={() => signOut()} className="btn bg-primary text-white">
-				Sign out
-			</button>
-		</div>
-	)
-}
-
-// $2y$10$OJPrjtoBDROuoJNINZ4Dfu0g2l3MWwI59tPQe2KhcYhnOMsvq5xJu
-
 export const Dashboard = (): JSX.Element => {
-	const { data: session, status } = useSession()
+	const { data: session } = useSession()
 
-	const user = session ? session.user : null
-
-	if (!user)
-		return (
-			<>
-				<Profile />
-			</>
-		)
+	const user: User | null = session ? session.user : null
 
 	return (
 		<>
@@ -78,7 +25,7 @@ export const Dashboard = (): JSX.Element => {
 							</Link>
 						</div>
 
-						{'superadmin' === user.role && (
+						{user && 'superadmin' === user.role && (
 							<div>
 								<Link href="/users" className={boxClassName}>
 									<div className="font-bold">Usuarios</div>
@@ -90,7 +37,7 @@ export const Dashboard = (): JSX.Element => {
 							</div>
 						)}
 
-						{'admin' === user.role && (
+						{user && 'admin' === user.role && (
 							<div>
 								<Link href="/doctors" className={boxClassName}>
 									<div className="font-bold">Doctores</div>
@@ -101,8 +48,8 @@ export const Dashboard = (): JSX.Element => {
 							</div>
 						)}
 
-						{'admin' === user.role ||
-							('superadmin' === user.role && (
+						{(user && 'admin' === user.role) ||
+							(user && 'superadmin' === user.role && (
 								<div>
 									<Link href="/medical-centers" className={boxClassName}>
 										<div className="font-bold">Centros médicos</div>
@@ -126,30 +73,6 @@ export const Dashboard = (): JSX.Element => {
 					</div>
 				)}
 			</section>
-
-			{/* 
-			<div className="space-y-5 mt-16">
-				<pre className="text-sm">{JSON.stringify(session, null, 2)}</pre>
-				<pre>{JSON.stringify(status)}</pre>
-				<div className="">
-					<button
-						onClick={() => signIn()}
-						className="btn bg-primary text-white"
-					>
-						Sign in
-					</button>
-				</div>
-
-				<div className="">
-					<button
-						onClick={() => signOut()}
-						className="btn bg-primary text-white"
-					>
-						Sign out
-					</button>
-				</div>
-			</div> 
-			*/}
 		</>
 	)
 }

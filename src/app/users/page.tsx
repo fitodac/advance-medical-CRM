@@ -1,8 +1,16 @@
-import type { Metadata } from 'next'
 import { api } from '@/config'
 import { useFetchList, useGetSession } from '@/hooks'
-import { PageHeader, Breadcrumbs, Pagination, FetchError } from '@/components'
-import { ButtonLink, Table } from '@/components'
+import {
+	PageHeader,
+	Breadcrumbs,
+	Pagination,
+	FetchError,
+	ButtonLink,
+	Table,
+} from '@/components'
+import { DeleteUser } from './(components)'
+
+import type { Metadata } from 'next'
 import type { Pager } from 'types'
 import type { User } from 'next-auth'
 
@@ -40,7 +48,7 @@ const UsersPage = async ({
 
 	const list = await useFetchList(url)
 	const session = await useGetSession()
-	
+
 	if (!session) {
 		return FetchError({
 			validation: session ? false : true,
@@ -121,6 +129,8 @@ const UsersPage = async ({
 									>
 										Editar
 									</ButtonLink>
+
+									<DeleteUser id={item.id} />
 								</div>
 							</td>
 						</tr>
@@ -131,6 +141,7 @@ const UsersPage = async ({
 			</section>
 
 			<div className="h-20" />
+
 			{/* <pre>{JSON.stringify(list, null, 2)}</pre> */}
 		</>
 	)

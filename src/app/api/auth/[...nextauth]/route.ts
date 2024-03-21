@@ -16,8 +16,8 @@ export const authOptions: NextAuthOptions = {
 					label: 'Email',
 					type: 'text',
 					// value: 'dani@commonpeoplei.com', // Superadmin
-					// value: 'dani+admin@commonpeoplei.com', // Admin
-					value: 'marianovor@hotmail.com', // Doctor
+					value: 'andrea.martin@abbott.com', // Admin
+					// value: 'marianovor@hotmail.com', // Doctor
 				},
 				// password: { label: 'Password', type: 'password', value: 'cpi_1975' },
 				password: { label: 'Password', type: 'password', value: 'advance' },
@@ -70,12 +70,13 @@ export const authOptions: NextAuthOptions = {
 						const res = await response.json()
 						return res
 					} else {
+						console.log('Authentication failed')
 						console.log('HTTP error! Status:', response.status)
-						// Handle non-successful response here, return an appropriate JSON response.
-						return { error: 'Authentication failed' }
+						return null
 					}
 				} catch (error) {
-					return { error: 'Authentication failed' }
+					console.log('Authentication failed')
+					return null
 				}
 
 				return null
@@ -97,10 +98,6 @@ export const authOptions: NextAuthOptions = {
 		},
 	},
 
-	pages: {
-		// signIn: '/auth/signin'
-		// error: 'auth/error',
-	},
 	// debug: true,
 	// events: {
 	// 	signOut(message) {},

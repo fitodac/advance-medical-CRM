@@ -1,10 +1,6 @@
-import { Navbar, Header } from '@/components'
+import { Navbar, Header, Footer } from '@/components'
 
-const MainTemplate = ({
-	children,
-}: {
-	children: React.ReactNode
-}): JSX.Element => {
+const MainTemplate = async ({ children }: { children: React.ReactNode }) => {
 	return (
 		<>
 			<div className="grid grid-cols-12">
@@ -21,11 +17,7 @@ const MainTemplate = ({
 								{children}
 							</div>
 
-							<div className="text-slate-400 w-full px-6 py-8 flex justify-end">
-								<span className="text-xxs select-none">
-									&copy;2023 Advance experts
-								</span>
-							</div>
+							<Footer />
 						</div>
 					</div>
 				</section>

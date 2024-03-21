@@ -16,7 +16,7 @@ export const Form = ({ specialties, profile }: Props) => {
 	const [state, setState] = useState<FormData>({
 		firstname: profile.firstname ?? '',
 		lastname: profile.lastname ?? '',
-		specialty_id: profile.doctor.specialty_id ?? null,
+		specialty_id: profile.doctor ? profile.doctor.specialty_id : null,
 	})
 
 	const [pwd, setPwd] = useState<FormPassword>({
@@ -142,47 +142,63 @@ export const Form = ({ specialties, profile }: Props) => {
 
 					<hr className="my-9" />
 
-					<div className="">
-						<h2 className="font-semibold leading-none select-none">
-							Datos de doctor
-						</h2>
+					{profile.role === 'doctor' && (
+						<div className="">
+							<h2 className="font-semibold leading-none select-none">
+								Datos de doctor
+							</h2>
 
-						<div className="grid gap-x-8 gap-y-4 mt-3 lg:grid-cols-2">
-							<div className="space-y-2">
-								<label className="select-none leading-tight block">
-									Especialidad
-								</label>
-								<select
-									name="specialty_id"
-									value={state.specialty_id}
-									onChange={handleChange}
-								>
-									<option value="">--- Selecciona una opción ---</option>
-									{specialties.map((specialty) => (
-										<option key={specialty.id} value={specialty.id}>
-											{specialty.name}
-										</option>
-									))}
-								</select>
-							</div>
+							<div className="grid gap-x-8 gap-y-4 mt-3 lg:grid-cols-2">
+								<div className="space-y-2">
+									<label className="select-none leading-tight block">
+										Especialidad
+									</label>
+									<select
+										name="specialty_id"
+										value={state.specialty_id ?? ''}
+										onChange={handleChange}
+									>
+										<option value="">--- Selecciona una opción ---</option>
+										{specialties.map((specialty) => (
+											<option key={specialty.id} value={specialty.id}>
+												{specialty.name}
+											</option>
+										))}
+									</select>
+								</div>
 
-							<div className="space-y-2">
-								{profile.doctor && (
-									<>
-										<label className="select-none leading-tight block">
-											Centro médico
-										</label>
-										<p className="text-slate-500 font-semibold">
-											{profile.doctor.center.name}
-										</p>
-										<small className="text-slate-400 text-xs">
-											COD. {profile.doctor.center.code}
-										</small>
-									</>
-								)}
+								<div className="space-y-2">
+									<label className="select-none leading-tight block">
+										Centro médico
+									</label>
+
+									{profile.doctor && profile.doctor.center ? (
+										<>
+											<p className="text-slate-500 font-semibold">
+												{profile.doctor.center.name}
+											</p>
+											<small className="text-slate-400 text-xs">
+												COD. {profile.doctor.center.code}
+											</small>
+										</>
+									) : (
+										<>
+											<div className="text-pink-600 space-y-1">
+												<p className="leading-tight font-medium">
+													El centro médico relacionado a tu cuenta no existe o
+													ha sido eliminado.
+												</p>
+												<p className="text-xs elading-tight">
+													Por favor, contacta a los administradores de la
+													aplicación.
+												</p>
+											</div>
+										</>
+									)}
+								</div>
 							</div>
 						</div>
-					</div>
+					)}
 
 					<div className="my-9">
 						<button
@@ -247,7 +263,7 @@ export const Form = ({ specialties, profile }: Props) => {
 
 			<div className="h-20" />
 
-			{/* <pre>{JSON.stringify(specialties, null, 2)}</pre> */}
+			{/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
 		</>
 	)
 }

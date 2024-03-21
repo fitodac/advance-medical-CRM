@@ -9,6 +9,7 @@ import {
 	ButtonLink,
 	FetchError,
 } from '@/components'
+import { DeleteDoctor } from './(components)'
 import type { Pager } from 'types'
 import type { User } from 'next-auth'
 
@@ -112,11 +113,17 @@ const DoctorsPage = async ({
 							</td>
 
 							<td className="text-slate-500 text-sm capitalize max-w-56">
-								<div className="overflow-ellipsis overflow-hidden">
-									<span className="whitespace-nowrap">
-										{toCapitalize(item.center.name)}
-									</span>
-								</div>
+								{item.center ? (
+									<div className="overflow-ellipsis overflow-hidden">
+										<span className="whitespace-nowrap">
+											{toCapitalize(item.center.name)}
+										</span>
+									</div>
+								) : (
+									<div className="text-pink-300 text-sm font-medium">
+										Centro médico eliminado
+									</div>
+								)}
 							</td>
 
 							<td>
@@ -127,6 +134,8 @@ const DoctorsPage = async ({
 									>
 										Editar
 									</ButtonLink>
+
+									<DeleteDoctor id={item.id} />
 								</div>
 							</td>
 						</tr>
@@ -135,6 +144,7 @@ const DoctorsPage = async ({
 
 				<Pagination pager={pager} />
 			</section>
+
 			<div className="h-20" />
 
 			{/* <pre>{JSON.stringify(session, null, 2)}</pre> */}

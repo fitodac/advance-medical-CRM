@@ -92,8 +92,8 @@ export const Form = ({ doctor, specialties, medicalCenters }: Props) => {
 				</form>
 			</section>
 
-			<pre className="pt-10">{JSON.stringify(form, null, 2)}</pre>
-			<pre className="mt-10">{JSON.stringify(doctor, null, 2)}</pre>
+			{/* <pre className="pt-10">{JSON.stringify(form, null, 2)}</pre> */}
+			{/* <pre className="mt-10">{JSON.stringify(doctor, null, 2)}</pre> */}
 		</>
 	)
 }

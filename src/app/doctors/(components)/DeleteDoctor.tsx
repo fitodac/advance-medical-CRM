@@ -8,19 +8,22 @@ interface Props {
 	id: number
 }
 
-export const DeleteCenter = ({ id }: Props) => {
+export const DeleteDoctor = ({ id }: Props) => {
 	const { setLoading } = useStore()
 	const router = useRouter()
 
 	const confirmDeletion = async () => {
 		setLoading(true)
 
-		const resp = await fetch(`/api/medical-center/${id}`, {
+		const resp = await fetch(`/api/doctors/${id}`, {
 			method: 'delete',
 		})
 
 		if (resp.ok) {
 			const resp_json = await resp.json()
+			document
+				.querySelectorAll<HTMLInputElement>('[type=checkbox]')
+				.forEach((e) => (e.checked = false))
 			router.refresh()
 
 			setTimeout(() => {
@@ -50,7 +53,7 @@ export const DeleteCenter = ({ id }: Props) => {
 				<div className="modal bg-red-100 w-96 space-y-3 px-4 py-6">
 					<div className="text-center space-y-1 leading-none">
 						<div className="text-red-700 text-lg font-bold">
-							Estás por eliminar un centro médico
+							Estás por eliminar un médico
 						</div>
 						<div className="text-red-700">
 							¿Estás seguro? Por favor, confírmalo, ya que esta acción no podrá

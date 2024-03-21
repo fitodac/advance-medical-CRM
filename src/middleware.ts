@@ -25,10 +25,20 @@ export default withAuth(
 				},
 			} = session
 
+			// if (!role) return redirect
+
 			if ('doctor' === role) {
 				if (req.url.includes(`${basePath}/doctors`)) return redirect
-				if (req.url.includes(`${basePath}/users`)) return redirect
 				if (req.url.includes(`${basePath}/medical-centers`)) return redirect
+				if (req.url.includes(`${basePath}/export-excel`)) return redirect
+			}
+
+			if ('doctor' !== role) {
+				if (req.url.includes(`${basePath}/crd`)) return redirect
+			}
+
+			if ('superadmin' !== role) {
+				if (req.url.includes(`${basePath}/users`)) return redirect
 			}
 		}
 	},
@@ -39,7 +49,6 @@ export default withAuth(
 
 				return sessionToken ? true : false
 			},
-			// token?.role === 'admin',
 		},
 	}
 )

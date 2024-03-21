@@ -22,8 +22,6 @@ export async function GET(
 	}
 }
 
-
-
 export async function DELETE(
 	req: NextRequest,
 	{ params }: { params: { id: string } }
@@ -31,7 +29,7 @@ export async function DELETE(
 	const { token } = await useGetToken()
 
 	try {
-		const resp = await fetch(`${serverApi.doctors.delete}/${params.id}`, {
+		const resp = await fetch(`${serverApi.doctors.index}/${params.id}`, {
 			method: 'DELETE',
 			headers: {
 				Authorization: token,

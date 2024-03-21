@@ -46,7 +46,6 @@ const MedicalCentersPage = async ({
 		})
 	}
 
-
 	if (!list) {
 		return FetchError({
 			validation: list,
@@ -132,7 +131,8 @@ const MedicalCentersPage = async ({
 			</section>
 
 			<div className="h-20" />
-			<pre>{JSON.stringify(list.data.data, null, 2)}</pre>
+
+			{/* <pre>{JSON.stringify(list.data.data, null, 2)}</pre> */}
 		</>
 	)
 }

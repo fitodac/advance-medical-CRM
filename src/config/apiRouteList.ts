@@ -31,7 +31,6 @@ export const serverApi: ServerApi = {
 	patients: {
 		index: `${laravelApiPath}/patients`,
 		post: `${laravelApiPath}/patients/create`,
-		delete: `${laravelApiPath}/patients/delete`,
 	},
 	visits: {
 		index: `${laravelApiPath}/visit`,

@@ -19,7 +19,7 @@ export interface Center {
 export interface FormData {
 	firstname: string
 	lastname: string
-	specialty_id: number
+	specialty_id: number | null
 }
 
 export interface FormPassword {

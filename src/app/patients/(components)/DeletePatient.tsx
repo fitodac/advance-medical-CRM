@@ -20,12 +20,11 @@ export const DeletePatient = ({ id }: Props) => {
 		})
 
 		if (resp.ok) {
-			const patient = await resp.json()
-			document.getElementById(`modal-${id}`)
+			const resp_json = await resp.json()
 			router.refresh()
 
 			setTimeout(() => {
-				toast.success(patient.message.message)
+				toast.success(resp_json.message)
 				setLoading(false)
 			}, 500)
 		} else {
@@ -37,7 +36,7 @@ export const DeletePatient = ({ id }: Props) => {
 		<>
 			<label
 				htmlFor={`modal-${id}`}
-				className="btn btn-sm bg-pink-100 border-pink-100 text-red-300 hover:bg-red-700 hover:border-red-700 hover:text-white"
+				className="btn btn-sm bg-pink-100 border-pink-100 text-pink-500 hover:bg-pink-700 hover:border-pink-700 hover:text-white"
 			>
 				Borrar
 			</label>
@@ -54,7 +53,7 @@ export const DeletePatient = ({ id }: Props) => {
 							Estás por eliminar un paciente
 						</div>
 						<div className="text-red-700">
-							¿Estás seguro? Por favor, confirmalo ya que esta acción no podrá
+							¿Estás seguro? Por favor, confírmalo, ya que esta acción no podrá
 							deshacerse.
 						</div>
 					</div>

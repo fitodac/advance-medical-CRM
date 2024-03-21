@@ -1,6 +1,7 @@
 export * from './Dashboard'
 export * from './Navbar'
 export * from './Header'
+export * from './Footer'
 export * from './PageHeader'
 export * from './Breadcrumbs'
 export * from './FetchError'

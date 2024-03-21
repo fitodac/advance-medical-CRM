@@ -2,12 +2,13 @@
 import { useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
-import { toast } from 'react-toastify'
 
 export const Header = (): JSX.Element => {
 	const { data: session } = useSession()
 	const user = session ? session.user : null
 	const [dd, setDd] = useState<number>(0)
+
+	if (!user) return <></>
 
 	return (
 		<>
@@ -52,7 +53,7 @@ export const Header = (): JSX.Element => {
 													<Link
 														href={'/profile'}
 														onClick={() => setDd(0)}
-														className="block select-none transition-all hover:text-primary"
+														className="text-left w-full select-none transition-all hover:text-primary"
 													>
 														Mi cuenta
 													</Link>
@@ -60,7 +61,7 @@ export const Header = (): JSX.Element => {
 												<li>
 													<button
 														onClick={() => signOut()}
-														className="block select-none transition-all hover:text-primary"
+														className="text-left w-full select-none transition-all hover:text-primary"
 													>
 														Cerrar sesión
 													</button>

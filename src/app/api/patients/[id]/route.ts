@@ -9,7 +9,7 @@ export async function DELETE(
 	const { token } = await useGetToken()
 
 	try {
-		const resp = await fetch(`${serverApi.patients.delete}/${params.id}`, {
+		const resp = await fetch(`${serverApi.patients.index}/${params.id}`, {
 			method: 'DELETE',
 			headers: {
 				Authorization: token,

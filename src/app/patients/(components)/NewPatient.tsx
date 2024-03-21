@@ -16,12 +16,12 @@ export const NewPatient = () => {
 		})
 
 		if (resp.ok) {
-			const patient = await resp.json()
-			toast.success(patient.message.message)
+			const resp_json = await resp.json()
+			toast.success(resp_json.message)
 			router.refresh()
 
 			setTimeout(() => {
-				router.push(`/crd/${patient.data.id}`)
+				router.push(`/crd/${resp_json.data.id}`)
 				setLoading(false)
 			}, 500)
 		} else {

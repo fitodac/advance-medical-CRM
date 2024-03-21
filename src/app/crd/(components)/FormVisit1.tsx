@@ -159,9 +159,9 @@ export const FormVisit1 = () => {
 
 				<div className="h-8" />
 
-				<div className="bg-black/70 text-white text-xs leading-relaxed w-1/3 p-6 right-0 inset-y-0 fixed overflow-y-auto z-40">
+				{/* <div className="bg-black/70 text-white text-xs leading-relaxed w-1/3 p-6 right-0 inset-y-0 fixed overflow-y-auto z-40">
 					<pre className="">{JSON.stringify(visit1, null, 2)}</pre>
-				</div>
+				</div> */}
 			</>
 		)
 

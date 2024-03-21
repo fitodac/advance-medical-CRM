@@ -12,7 +12,8 @@ export const Navbar = (): JSX.Element => {
 	const pathname = usePathname()
 	const { data: session } = useSession()
 	const user: User | null = session ? session.user : null
-	const role = user ? user.role : null
+
+	if (!user) return <></>
 
 	return (
 		<nav className="bg-teal w-[260px] min-h-screen sm:w-[33vw] sm:fixed md:w-[25vw] lg:w-[25vw] xl:w-[16.5vw]">

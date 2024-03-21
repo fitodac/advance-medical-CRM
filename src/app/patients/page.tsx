@@ -186,6 +186,7 @@ const PatientsPage = async ({
 											<EditCrd patient={item} />
 										</>
 									)}
+
 									<DeletePatient id={item.id} />
 								</div>
 							</td>
@@ -197,6 +198,7 @@ const PatientsPage = async ({
 			</section>
 
 			<div className="h-12" />
+
 			{/* <pre>{JSON.stringify(list, null, 2)}</pre> */}
 		</>
 	)

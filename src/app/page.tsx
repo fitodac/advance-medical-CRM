@@ -6,7 +6,6 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-	// const { data: session, status } = useSession()
 
 	return (
 		<>
