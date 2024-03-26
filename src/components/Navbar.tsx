@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import type { DefaultSession, User } from 'next-auth'
+import type { User } from 'next-auth'
 
 const itemClassName = `link text-white text-opacity-60 text-[15px] pl-6 py-2 block hover:text-opacity-80`
 const itemActiveClassName = `link border-r-4 border-r-white text-white text-[15px] pl-6 py-2 block 

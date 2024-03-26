@@ -22,6 +22,7 @@ export const authOptions: NextAuthOptions = {
 				// password: { label: 'Password', type: 'password', value: 'cpi_1975' },
 				password: { label: 'Password', type: 'password', value: 'advance' },
 			},
+			
 			async authorize(credentials) {
 				const res = await fetch('http://localhost/sanctum/csrf-cookie', {
 					method: 'GET',
@@ -97,6 +98,10 @@ export const authOptions: NextAuthOptions = {
 			return session
 		},
 	},
+
+	pages: {
+		signIn: '/login'
+	}
 
 	// debug: true,
 	// events: {

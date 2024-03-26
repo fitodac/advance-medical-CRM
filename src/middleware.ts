@@ -50,7 +50,22 @@ export default withAuth(
 				return sessionToken ? true : false
 			},
 		},
+
+		pages: {
+			signIn: '/login',
+		},
 	}
 )
 
-export const config = { matcher: ['/:path*'] }
+export const config = {
+	matcher: [
+		// '/:path*',
+		'/',
+		'/doctors/:path*',
+		'/patients/:path*',
+		'/users/:path*',
+		'/medical-centers/:path*',
+		'/profile/:path*',
+		'/documents/:path*',
+	],
+}

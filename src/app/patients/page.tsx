@@ -1,11 +1,7 @@
 import type { Metadata } from 'next'
 import { api } from '@/config'
 import { useFetchList, useGetSession, useHelpers } from '@/hooks'
-import {
-	// List,
-	NewPatient,
-	EditCrd,
-} from './(components)'
+import { NewPatient, EditCrd } from './(components)'
 import {
 	PageHeader,
 	Breadcrumbs,

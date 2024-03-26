@@ -11,6 +11,8 @@ import { useStore } from '@/store'
 import { ToastContainer } from 'react-toastify'
 import { Slide } from 'react-toastify'
 
+import { Loading } from '@/components'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({
@@ -27,15 +29,11 @@ export default function RootLayout({
 			<body
 				className={`${inter.className} ${loading ? 'overflow-hidden' : ''}`}
 			>
-				<SessionProvider session={session}>{children}</SessionProvider>
+				<SessionProvider session={session}>
+					<div className="grid grid-cols-12">{children}</div>
+				</SessionProvider>
 
-				{loading && (
-					<div className="bg-white/80 inset-0 fixed z-[100]">
-						<div className="grid place-content-center h-full">
-							<div className="spinner border-l-teal w-10 after:border-opacity-30"></div>
-						</div>
-					</div>
-				)}
+				{loading && <Loading />}
 
 				<ToastContainer
 					position="bottom-left"

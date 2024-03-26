@@ -48,25 +48,25 @@ export const Header = (): JSX.Element => {
 										</span>
 
 										<div className="dropdown-nav w-40 z-20">
-											<ul className="text-sm rounded-0">
-												<li>
+											<div className="text-sm font-medium py-2.5 space-y-1 rounded-0">
+												<div className="px-2">
 													<Link
 														href={'/profile'}
 														onClick={() => setDd(0)}
-														className="text-left w-full select-none transition-all hover:text-primary"
+														className="text-left w-full block px-2 py-1 select-none transition-all rounded-md hover:bg-teal-100 hover:text-teal-600"
 													>
 														Mi cuenta
 													</Link>
-												</li>
-												<li>
+												</div>
+												<div className="px-2">
 													<button
 														onClick={() => signOut()}
-														className="text-left w-full select-none transition-all hover:text-primary"
+														className="text-left w-full block px-2 py-1 select-none transition-all rounded-md hover:bg-teal-100 hover:text-teal-600"
 													>
 														Cerrar sesión
 													</button>
-												</li>
-											</ul>
+												</div>
+											</div>
 										</div>
 									</>
 								)}

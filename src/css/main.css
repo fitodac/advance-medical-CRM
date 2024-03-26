@@ -34,3 +34,7 @@ input.input-error,
 select.input-error {
 	@apply bg-pink-50 border-pink-500 text-pink-600 border-2 !important;
 }
+
+.bg-login-image {
+	background: url('/img/background.webp');
+}
